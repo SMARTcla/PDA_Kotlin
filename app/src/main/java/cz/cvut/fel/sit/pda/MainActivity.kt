@@ -39,31 +39,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    val transactions = remember { mutableStateListOf<Transaction>() }
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Scaffold(
-            bottomBar = { AppBottomNavigation(navController) },
-            content = { paddingValues ->
-                NavHost(navController = navController, startDestination = "accounts", modifier = Modifier.padding(paddingValues)) {
-                    composable("accounts") { AccountsScreen(transactions) }
-                    composable("overview") { OverviewScreen() }
-                    composable("transactions") { TransactionsScreen(navController, transactions) } // Передаем список транзакций
-                    composable("budget") { BudgetScreen() }
-                    composable("categories") { CategoriesScreen() }
-                    composable("add_transaction") {
-                        AddTransactionScreen(navController) { transaction ->
-                            transactions.add(transaction)
-                            navController.popBackStack()
-                        }
-                    }
-                }
-            }
-        )
-    }
-}
+
 
 @Composable
 fun AppBottomNavigation(navController: NavHostController) {
@@ -155,10 +131,3 @@ fun currentRoute(navController: NavHostController): String? {
     return currentRoute
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewGreetingScreen() {
-    PDATheme {
-        GreetingScreen("Preview Text")
-    }
-}
