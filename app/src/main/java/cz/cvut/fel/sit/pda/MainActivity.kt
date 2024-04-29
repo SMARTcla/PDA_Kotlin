@@ -44,93 +44,93 @@ class MainActivity : ComponentActivity() {
 
 
 
-@Composable
-fun AppBottomNavigation(navController: NavHostController) {
-    BottomNavigation(
-        backgroundColor = Color(0xFF69789A),
-        contentColor = Color.White
-    )
-    {
-        val currentRoute = currentRoute(navController)
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.AccountBox, contentDescription = "Accounts") },
-            label = { Text("Accounts") },
-            selected = currentRoute == GeldScreen.Overview.name,
-            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "Overview") },
-            label = { Text("Overview") },
-            selected = currentRoute == GeldScreen.Overview.name,
-            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Transactions") },
-            label = { Text("Transactions") },
-            selected = currentRoute == GeldScreen.Transactions.name,
-            onClick = { navigateToScreen(navController, GeldScreen.Transactions.name) },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Budget") },
-            label = { Text("Budget") },
-            selected = currentRoute == GeldScreen.Budget.name,
-            onClick = { navigateToScreen(navController, GeldScreen.Budget.name) },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Categories") },
-            label = { Text("Categories") },
-            selected = currentRoute == GeldScreen.Categories.name,
-            onClick = { navigateToScreen(navController, GeldScreen.Categories.name) },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-    }
-}
-
-@Composable
-fun OverviewScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Overview", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun BudgetScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Budget", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun CategoriesScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Categories", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun GreetingScreen(text: String) {
-    Text(text = text, modifier = Modifier.fillMaxSize())
-}
-fun navigateToScreen(navController: NavHostController, route: String) {
-    navController.navigate(route) {
-        launchSingleTop = true
-    }
-}
-
-fun currentRoute(navController: NavHostController): String? {
-    val currentRoute = navController.currentBackStackEntry?.destination?.route
-    Log.d("Navigation", "Current pass: $currentRoute")
-    return currentRoute
-}
+//@Composable
+//fun AppBottomNavigation(navController: NavHostController) {
+//    BottomNavigation(
+//        backgroundColor = Color(0xFF69789A),
+//        contentColor = Color.White
+//    )
+//    {
+//        val currentRoute = currentRoute(navController)
+//        BottomNavigationItem(
+//            icon = { Icon(Icons.Filled.AccountBox, contentDescription = "Accounts") },
+//            label = { Text("Accounts") },
+//            selected = currentRoute == GeldScreen.Overview.name,
+//            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
+//            selectedContentColor = Color.Black,
+//            unselectedContentColor = Color.White.copy(0.7f),
+//            alwaysShowLabel = true
+//        )
+//        BottomNavigationItem(
+//            icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "Overview") },
+//            label = { Text("Overview") },
+//            selected = currentRoute == GeldScreen.Overview.name,
+//            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
+//            selectedContentColor = Color.Black,
+//            unselectedContentColor = Color.White.copy(0.7f),
+//            alwaysShowLabel = true
+//        )
+//        BottomNavigationItem(
+//            icon = { Icon(Icons.Filled.Settings, contentDescription = "Transactions") },
+//            label = { Text("Transactions") },
+//            selected = currentRoute == GeldScreen.Transactions.name,
+//            onClick = { navigateToScreen(navController, GeldScreen.Transactions.name) },
+//            selectedContentColor = Color.Black,
+//            unselectedContentColor = Color.White.copy(0.7f),
+//            alwaysShowLabel = true
+//        )
+//        BottomNavigationItem(
+//            icon = { Icon(Icons.Filled.Settings, contentDescription = "Budget") },
+//            label = { Text("Budget") },
+//            selected = currentRoute == GeldScreen.Budget.name,
+//            onClick = { navigateToScreen(navController, GeldScreen.Budget.name) },
+//            selectedContentColor = Color.Black,
+//            unselectedContentColor = Color.White.copy(0.7f),
+//            alwaysShowLabel = true
+//        )
+//        BottomNavigationItem(
+//            icon = { Icon(Icons.Filled.Settings, contentDescription = "Categories") },
+//            label = { Text("Categories") },
+//            selected = currentRoute == GeldScreen.Categories.name,
+//            onClick = { navigateToScreen(navController, GeldScreen.Categories.name) },
+//            selectedContentColor = Color.Black,
+//            unselectedContentColor = Color.White.copy(0.7f),
+//            alwaysShowLabel = true
+//        )
+//    }
+//}
+//
+//@Composable
+//fun OverviewScreen() {
+//    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
+//        Text(text = "Hello Overview", modifier = Modifier.fillMaxSize())
+//    }
+//}
+//@Composable
+//fun BudgetScreen() {
+//    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
+//        Text(text = "Hello Budget", modifier = Modifier.fillMaxSize())
+//    }
+//}
+//@Composable
+//fun CategoriesScreen() {
+//    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
+//        Text(text = "Hello Categories", modifier = Modifier.fillMaxSize())
+//    }
+//}
+//@Composable
+//fun GreetingScreen(text: String) {
+//    Text(text = text, modifier = Modifier.fillMaxSize())
+//}
+//fun navigateToScreen(navController: NavHostController, route: String) {
+//    navController.navigate(route) {
+//        launchSingleTop = true
+//    }
+//}
+//
+//fun currentRoute(navController: NavHostController): String? {
+//    val currentRoute = navController.currentBackStackEntry?.destination?.route
+//    Log.d("Navigation", "Current pass: $currentRoute")
+//    return currentRoute
+//}
 
