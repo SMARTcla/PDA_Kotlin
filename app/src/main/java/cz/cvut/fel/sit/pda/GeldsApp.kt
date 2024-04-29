@@ -1,5 +1,7 @@
 package cz.cvut.fel.sit.pda
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -20,6 +22,19 @@ import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
 
+enum class GeldScreen() {
+    Accounts,
+    Overview,
+    Transactions,
+    Budget,
+    Categories,
+    AddTransaction,
+
+    // Add new values in future
+
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -28,13 +43,23 @@ fun AppNavigation() {
         Scaffold(
                 bottomBar = { AppBottomNavigation(navController) },
                 content = { paddingValues ->
-                    NavHost(navController = navController, startDestination = "accounts", modifier = Modifier.padding(paddingValues)) {
-                        composable("accounts") { AccountsScreen(transactions) }
-                        composable("overview") { OverviewScreen() }
-                        composable("transactions") { TransactionsScreen(navController, transactions) } // Передаем список транзакций
-                        composable("budget") { BudgetScreen() }
-                        composable("categories") { CategoriesScreen() }
-                        composable("add_transaction") {
+                    NavHost(navController = navController,
+                        startDestination = GeldScreen.Accounts.name,
+                        modifier = Modifier.padding(paddingValues)) {
+
+                        composable(GeldScreen.Accounts.name) {
+                            AccountsScreen(transactions) }
+                        composable(GeldScreen.Overview.name) {
+                            OverviewScreen() }
+
+                        // Passing a list of transactions
+                        composable(GeldScreen.Transactions.name) {
+                            TransactionsScreen(navController, transactions) }
+                        composable(GeldScreen.Budget.name) {
+                            BudgetScreen() }
+                        composable(GeldScreen.Categories.name) {
+                            CategoriesScreen() }
+                        composable(GeldScreen.AddTransaction.name) {
                             AddTransactionScreen(navController) { transaction ->
                                 transactions.add(transaction)
                                 navController.popBackStack()

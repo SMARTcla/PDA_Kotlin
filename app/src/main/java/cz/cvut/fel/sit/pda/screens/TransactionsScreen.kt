@@ -1,6 +1,8 @@
 package cz.cvut.fel.sit.pda.screens
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -28,12 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TransactionsScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
@@ -46,7 +50,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { navController.navigate("add_transaction") },
+                    onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
                     backgroundColor = MaterialTheme.colors.primary
                 ) {
                     Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
@@ -75,6 +79,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
     val dateFormatter = DateTimeFormatter.ofPattern("dd MMMM")
