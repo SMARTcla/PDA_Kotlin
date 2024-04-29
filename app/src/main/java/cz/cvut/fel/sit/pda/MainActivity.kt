@@ -1,9 +1,11 @@
 package cz.cvut.fel.sit.pda
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -29,6 +31,7 @@ import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -52,8 +55,8 @@ fun AppBottomNavigation(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.AccountBox, contentDescription = "Accounts") },
             label = { Text("Accounts") },
-            selected = currentRoute == "accounts",
-            onClick = { navigateToScreen(navController, "accounts") },
+            selected = currentRoute == GeldScreen.Overview.name,
+            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
             selectedContentColor = Color.Black,
             unselectedContentColor = Color.White.copy(0.7f),
             alwaysShowLabel = true
@@ -61,8 +64,8 @@ fun AppBottomNavigation(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "Overview") },
             label = { Text("Overview") },
-            selected = currentRoute == "overview",
-            onClick = { navigateToScreen(navController, "overview") },
+            selected = currentRoute == GeldScreen.Overview.name,
+            onClick = { navigateToScreen(navController, GeldScreen.Overview.name) },
             selectedContentColor = Color.Black,
             unselectedContentColor = Color.White.copy(0.7f),
             alwaysShowLabel = true
@@ -70,8 +73,8 @@ fun AppBottomNavigation(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.Settings, contentDescription = "Transactions") },
             label = { Text("Transactions") },
-            selected = currentRoute == "transactions",
-            onClick = { navigateToScreen(navController, "transactions") },
+            selected = currentRoute == GeldScreen.Transactions.name,
+            onClick = { navigateToScreen(navController, GeldScreen.Transactions.name) },
             selectedContentColor = Color.Black,
             unselectedContentColor = Color.White.copy(0.7f),
             alwaysShowLabel = true
@@ -79,8 +82,8 @@ fun AppBottomNavigation(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.Settings, contentDescription = "Budget") },
             label = { Text("Budget") },
-            selected = currentRoute == "budget",
-            onClick = { navigateToScreen(navController, "budget") },
+            selected = currentRoute == GeldScreen.Budget.name,
+            onClick = { navigateToScreen(navController, GeldScreen.Budget.name) },
             selectedContentColor = Color.Black,
             unselectedContentColor = Color.White.copy(0.7f),
             alwaysShowLabel = true
@@ -88,8 +91,8 @@ fun AppBottomNavigation(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.Settings, contentDescription = "Categories") },
             label = { Text("Categories") },
-            selected = currentRoute == "categories",
-            onClick = { navigateToScreen(navController, "categories") },
+            selected = currentRoute == GeldScreen.Categories.name,
+            onClick = { navigateToScreen(navController, GeldScreen.Categories.name) },
             selectedContentColor = Color.Black,
             unselectedContentColor = Color.White.copy(0.7f),
             alwaysShowLabel = true
