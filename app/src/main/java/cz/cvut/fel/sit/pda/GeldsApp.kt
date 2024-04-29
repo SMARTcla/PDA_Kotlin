@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -15,9 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.screens.AccountsScreen
 import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
+import cz.cvut.fel.sit.pda.screens.BudgetScreen
+import cz.cvut.fel.sit.pda.screens.CategoriesScreen
+import cz.cvut.fel.sit.pda.screens.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
@@ -41,7 +46,7 @@ fun AppNavigation() {
     val transactions = remember { mutableStateListOf<Transaction>() }
     Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
         Scaffold(
-                bottomBar = { AppBottomNavigation(navController) },
+                bottomBar = { GeldsBottomBar(navController) },
                 content = { paddingValues ->
                     NavHost(navController = navController,
                         startDestination = GeldScreen.Accounts.name,
@@ -72,10 +77,11 @@ fun AppNavigation() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun PreviewGreetingScreen() {
     PDATheme {
-        GreetingScreen("Preview Text")
+        AppNavigation()
     }
 }
