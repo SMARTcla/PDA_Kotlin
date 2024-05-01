@@ -113,7 +113,7 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
                 // Дополнительные стилистики по желанию
             )
             Text(
-                text = "$totalAmount Kč",
+                text = "$totalAmount CZK",
                 style = MaterialTheme.typography.subtitle1,
                 // Дополнительные стилистики по желанию
             )

@@ -25,7 +25,7 @@ fun TransactionItem(transaction: Transaction) {
                 Text(text = transaction.name, style = MaterialTheme.typography.h6)
                 Text(text = transaction.type.displayName, style = MaterialTheme.typography.caption)
             }
-            Text(text = "${transaction.amount} USD", style = MaterialTheme.typography.h6)
+            Text(text = "${transaction.amount} CZK", style = MaterialTheme.typography.h6)
         }
     }
 }
