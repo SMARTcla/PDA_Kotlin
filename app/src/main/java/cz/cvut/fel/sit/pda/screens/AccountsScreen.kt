@@ -38,37 +38,34 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
             BasicAppBar(
                 title = "Accounts",
                 navController = navController,
-                canNavigateBack = false, // Пример: нет кнопки назад
+                canNavigateBack = false,
                 onNavigateBack = {}
             )
         },
         bottomBar = {
             GeldsBottomBar(navController)
-        }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* Handle add account */ },
+                backgroundColor = MaterialTheme.colors.primary,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = "Add Account")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
+        isFloatingActionButtonDocked = false
     )
     { innerPadding ->
 
-
         Surface(color = Color(0xFF586481), modifier = Modifier.padding(innerPadding) ) {
-            Column(modifier = Modifier.fillMaxSize()) {
-//                TopAppBar(title = { Text("Accounts999") }, backgroundColor = Color(0xFF586481))
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 8.dp)
-                ) {
-                    items(accountsWithBalances) { account ->
-                        AccountItem(account)
-                    }
-                }
-                FloatingActionButton(
-                    onClick = { /* Handle add account */ },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.End),
-                    backgroundColor = Color.Yellow
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add Account")
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(accountsWithBalances) { account ->
+                    AccountItem(account)
                 }
             }
         }
@@ -92,7 +89,7 @@ fun AccountItem(account: BankCardWithBalance) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = account.name, style = MaterialTheme.typography.h6)
-            Text(text = "${account.balance} Kč", style = MaterialTheme.typography.h6)
+            Text(text = "${account.balance} CZK", style = MaterialTheme.typography.h6)
         }
     }
 }

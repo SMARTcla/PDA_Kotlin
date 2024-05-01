@@ -143,7 +143,7 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                         }
                     }
                 },
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             ) {
                 Text("Add Transaction")
             }
