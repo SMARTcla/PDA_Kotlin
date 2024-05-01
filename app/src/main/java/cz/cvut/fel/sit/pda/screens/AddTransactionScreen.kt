@@ -49,6 +49,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.material.Surface
 import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import java.util.*
 
@@ -71,6 +72,9 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                 canNavigateBack = true,
                 onNavigateBack = { navController.popBackStack() }
             )
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
         }
     ) { innerPadding ->
     Surface(
