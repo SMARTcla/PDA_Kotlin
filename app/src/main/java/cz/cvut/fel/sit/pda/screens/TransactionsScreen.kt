@@ -20,17 +20,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
+import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
@@ -48,16 +47,29 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
         color = Color(0xFF586481)
     ) {
         Scaffold(
+            topBar = {
+                BasicAppBar(
+                    title = "Transactions",
+                    navController = navController,
+                    canNavigateBack = false,
+                    onNavigateBack = {}
+                )
+            },
+            bottomBar = {
+                GeldsBottomBar(navController)
+            },
             floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
-                    backgroundColor = MaterialTheme.colors.primary
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                Column(modifier = Modifier.padding(top = 26.dp)) {
+                    FloatingActionButton(
+                        onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
+                        backgroundColor = MaterialTheme.colors.primary
+                    ) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                    }
                 }
             },
             floatingActionButtonPosition = FabPosition.Center,
-            isFloatingActionButtonDocked = true,
+            isFloatingActionButtonDocked = false,
             content = { padding ->
                 LazyColumn(
                     modifier = Modifier
