@@ -11,12 +11,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @Composable
-fun AccountsScreen(transactions: MutableList<Transaction>) {
+fun AccountsScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
     val accountsWithBalances = remember { mutableStateListOf<BankCardWithBalance>() }
 
     LaunchedEffect(transactions) {
@@ -30,22 +33,43 @@ fun AccountsScreen(transactions: MutableList<Transaction>) {
         }
     }
 
-    Surface(color = Color(0xFF586481)) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            TopAppBar(title = { Text("Accounts") }, backgroundColor = Color(0xFF586481))
-            LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
-                items(accountsWithBalances) { account ->
-                    AccountItem(account)
+    Scaffold (
+        topBar = {
+            BasicAppBar(
+                title = "Accounts",
+                navController = navController,
+                canNavigateBack = false, // Пример: нет кнопки назад
+                onNavigateBack = {}
+            )
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
+        }
+    )
+    { innerPadding ->
+
+
+        Surface(color = Color(0xFF586481), modifier = Modifier.padding(innerPadding) ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+//                TopAppBar(title = { Text("Accounts999") }, backgroundColor = Color(0xFF586481))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 8.dp)
+                ) {
+                    items(accountsWithBalances) { account ->
+                        AccountItem(account)
+                    }
                 }
-            }
-            FloatingActionButton(
-                onClick = { /* Handle add account */ },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.End),
-                backgroundColor = Color.Yellow
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = "Add Account")
+                FloatingActionButton(
+                    onClick = { /* Handle add account */ },
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.End),
+                    backgroundColor = Color.Yellow
+                ) {
+                    Icon(Icons.Filled.Add, contentDescription = "Add Account")
+                }
             }
         }
     }

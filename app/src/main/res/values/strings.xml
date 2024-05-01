@@ -9,6 +9,8 @@
     <string name="add_transaction_tab_name">Add transaction</string>
     <string name="expenses_tab_name">Expenses</string>
     <string name="income_tab_name">Income</string>
+    <string name="settings_button" />
+    <string name="back_button" />
 
 
 </resources>

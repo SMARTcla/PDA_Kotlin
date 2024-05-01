@@ -1,5 +1,6 @@
 package cz.cvut.fel.sit.pda
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.BudgetScreen
 import cz.cvut.fel.sit.pda.screens.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.OverviewScreen
+import cz.cvut.fel.sit.pda.screens.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
@@ -34,46 +36,52 @@ enum class GeldScreen() {
     Budget,
     Categories,
     AddTransaction,
+    Settings,
 
     // Add new values in future
 
 }
 
+@SuppressLint("ComposableDestinationInComposeScope")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     val transactions = remember { mutableStateListOf<Transaction>() }
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Scaffold(
-                bottomBar = { GeldsBottomBar(navController) },
-                content = { paddingValues ->
-                    NavHost(navController = navController,
-                        startDestination = GeldScreen.Accounts.name,
-                        modifier = Modifier.padding(paddingValues)) {
 
-                        composable(GeldScreen.Accounts.name) {
-                            AccountsScreen(transactions) }
-                        composable(GeldScreen.Overview.name) {
-                            OverviewScreen() }
 
-                        // Passing a list of transactions
-                        composable(GeldScreen.Transactions.name) {
-                            TransactionsScreen(navController, transactions) }
-                        composable(GeldScreen.Budget.name) {
-                            BudgetScreen() }
-                        composable(GeldScreen.Categories.name) {
-                            CategoriesScreen() }
-                        composable(GeldScreen.AddTransaction.name) {
-                            AddTransactionScreen(navController) { transaction ->
-                                transactions.add(transaction)
-                                navController.popBackStack()
-                            }
-                        }
-                    }
+
+        NavHost(navController = navController,
+            startDestination = GeldScreen.Accounts.name,
+            modifier = Modifier) {
+
+            composable(GeldScreen.Accounts.name) {
+                AccountsScreen(navController, transactions) }
+            composable(GeldScreen.Overview.name) {
+                OverviewScreen(navController) }
+
+            // Passing a list of transactions
+            composable(GeldScreen.Transactions.name) {
+                TransactionsScreen(navController, transactions) }
+            composable(GeldScreen.Budget.name) {
+                BudgetScreen(navController) }
+            composable(GeldScreen.Categories.name) {
+                CategoriesScreen(navController) }
+
+            composable(GeldScreen.Settings.name) {
+                SettingsScreen(navController) }
+
+            composable(GeldScreen.AddTransaction.name) {
+                AddTransactionScreen(navController) { transaction ->
+                    transactions.add(transaction)
+                    navController.popBackStack()
                 }
-        )
-    }
+
+            }
+        }
+
+
+
 }
 
 
