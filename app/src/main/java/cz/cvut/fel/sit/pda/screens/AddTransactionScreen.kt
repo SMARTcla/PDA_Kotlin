@@ -45,11 +45,16 @@ import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import android.app.DatePickerDialog
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material.Surface
+import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import java.util.*
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddTransactionScreen(navController: NavHostController, addTransaction: (Transaction) -> Unit) {
     var name by remember { mutableStateOf("") }
@@ -58,8 +63,22 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     val context = LocalContext.current
     var selectedCard by remember { mutableStateOf(TemporaryDatabase.bankCards.first().name) }
+
+    Scaffold(
+        topBar = {
+            BasicAppBar(
+                title = "Add Transaction",
+                navController = navController,
+                canNavigateBack = true,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
+        }
+    ) { innerPadding ->
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(innerPadding),
         color = Color(0xFF586481)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -124,16 +143,18 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                         }
                     }
                 },
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             ) {
                 Text("Add Transaction")
             }
         }
     }
+    }
 }
 
 @Composable
-fun DropdownMenu(selectedType: TransactionType, onTypeSelected: (TransactionType) -> Unit, transactionTypes: List<TransactionType>) {
+fun DropdownMenu(selectedType: TransactionType, onTypeSelected:
+    (TransactionType) -> Unit, transactionTypes: List<TransactionType>) {
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -174,6 +195,7 @@ fun CardDropdownMenu(selectedCard: String, onCardSelected: (String) -> Unit, ban
         }
     }
 }
+@RequiresApi(Build.VERSION_CODES.O)
 fun showDatePicker(context: Context, currentDate: LocalDate, onDateSelected: (LocalDate) -> Unit) {
     val calendar = Calendar.getInstance().apply {
         set(currentDate.year, currentDate.monthValue - 1, currentDate.dayOfMonth)

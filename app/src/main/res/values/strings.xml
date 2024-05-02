@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">PDA</string>
+
+    <string name="accounts_tab_name">Accounts</string>
+    <string name="overview_tab_name">Overview</string>
+    <string name="transactions_tab_name">Transactions</string>
+    <string name="budget_tab_name">Budget</string>
+    <string name="categories_tab_name">Categories</string>
+    <string name="add_transaction_tab_name">Add transaction</string>
+    <string name="expenses_tab_name">Expenses</string>
+    <string name="income_tab_name">Income</string>
+    <string name="settings_button" />
+    <string name="back_button" />
+
+
 </resources>

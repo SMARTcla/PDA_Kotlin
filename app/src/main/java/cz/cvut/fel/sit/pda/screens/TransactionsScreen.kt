@@ -1,6 +1,8 @@
 package cz.cvut.fel.sit.pda.screens
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,22 +20,23 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.GeldScreen
+import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TransactionsScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
@@ -44,16 +47,29 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
         color = Color(0xFF586481)
     ) {
         Scaffold(
+            topBar = {
+                BasicAppBar(
+                    title = "Transactions",
+                    navController = navController,
+                    canNavigateBack = false,
+                    onNavigateBack = {}
+                )
+            },
+            bottomBar = {
+                GeldsBottomBar(navController)
+            },
             floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { navController.navigate("add_transaction") },
-                    backgroundColor = MaterialTheme.colors.primary
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                Column(modifier = Modifier.padding(top = 26.dp)) {
+                    FloatingActionButton(
+                        onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
+                        backgroundColor = MaterialTheme.colors.primary
+                    ) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                    }
                 }
             },
             floatingActionButtonPosition = FabPosition.Center,
-            isFloatingActionButtonDocked = true,
+            isFloatingActionButtonDocked = false,
             content = { padding ->
                 LazyColumn(
                     modifier = Modifier
@@ -75,6 +91,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
     val dateFormatter = DateTimeFormatter.ofPattern("dd MMMM")
@@ -96,7 +113,7 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
                 // Дополнительные стилистики по желанию
             )
             Text(
-                text = "$totalAmount Kč",
+                text = "$totalAmount CZK",
                 style = MaterialTheme.typography.subtitle1,
                 // Дополнительные стилистики по желанию
             )

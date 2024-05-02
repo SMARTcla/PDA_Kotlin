@@ -1,9 +1,11 @@
 package cz.cvut.fel.sit.pda
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -29,6 +31,7 @@ import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,129 +39,5 @@ class MainActivity : ComponentActivity() {
                 AppNavigation()
             }
         }
-    }
-}
-
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    val transactions = remember { mutableStateListOf<Transaction>() }
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Scaffold(
-            bottomBar = { AppBottomNavigation(navController) },
-            content = { paddingValues ->
-                NavHost(navController = navController, startDestination = "accounts", modifier = Modifier.padding(paddingValues)) {
-                    composable("accounts") { AccountsScreen(transactions) }
-                    composable("overview") { OverviewScreen() }
-                    composable("transactions") { TransactionsScreen(navController, transactions) } // Передаем список транзакций
-                    composable("budget") { BudgetScreen() }
-                    composable("categories") { CategoriesScreen() }
-                    composable("add_transaction") {
-                        AddTransactionScreen(navController) { transaction ->
-                            transactions.add(transaction)
-                            navController.popBackStack()
-                        }
-                    }
-                }
-            }
-        )
-    }
-}
-
-@Composable
-fun AppBottomNavigation(navController: NavHostController) {
-    BottomNavigation(
-        backgroundColor = Color(0xFF69789A),
-        contentColor = Color.White
-    )
-    {
-        val currentRoute = currentRoute(navController)
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.AccountBox, contentDescription = "Accounts") },
-            label = { Text("Accounts") },
-            selected = currentRoute == "accounts",
-            onClick = { navigateToScreen(navController, "accounts") },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "Overview") },
-            label = { Text("Overview") },
-            selected = currentRoute == "overview",
-            onClick = { navigateToScreen(navController, "overview") },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Transactions") },
-            label = { Text("Transactions") },
-            selected = currentRoute == "transactions",
-            onClick = { navigateToScreen(navController, "transactions") },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Budget") },
-            label = { Text("Budget") },
-            selected = currentRoute == "budget",
-            onClick = { navigateToScreen(navController, "budget") },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Settings, contentDescription = "Categories") },
-            label = { Text("Categories") },
-            selected = currentRoute == "categories",
-            onClick = { navigateToScreen(navController, "categories") },
-            selectedContentColor = Color.Black,
-            unselectedContentColor = Color.White.copy(0.7f),
-            alwaysShowLabel = true
-        )
-    }
-}
-
-@Composable
-fun OverviewScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Overview", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun BudgetScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Budget", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun CategoriesScreen() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF586481)) {
-        Text(text = "Hello Categories", modifier = Modifier.fillMaxSize())
-    }
-}
-@Composable
-fun GreetingScreen(text: String) {
-    Text(text = text, modifier = Modifier.fillMaxSize())
-}
-fun navigateToScreen(navController: NavHostController, route: String) {
-    navController.navigate(route) {
-        launchSingleTop = true
-    }
-}
-
-fun currentRoute(navController: NavHostController): String? {
-    val currentRoute = navController.currentBackStackEntry?.destination?.route
-    Log.d("Navigation", "Current pass: $currentRoute")
-    return currentRoute
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewGreetingScreen() {
-    PDATheme {
-        GreetingScreen("Preview Text")
     }
 }
