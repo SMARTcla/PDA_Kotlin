@@ -8,6 +8,7 @@ enum class GeldScreen() {
     Categories,
     AddTransaction,
     Settings,
+    AddCardScreen,
     AddAccounts,
     Income,
     Expenses,
