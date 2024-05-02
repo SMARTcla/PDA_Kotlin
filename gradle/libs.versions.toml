@@ -17,6 +17,7 @@ navigationCompose = "2.7.7"
 lifecycleRuntimeCompose = "2.7.0"
 material = "1.6.6"
 roomVersion = "2.6.1"
+protoliteWellKnownTypes = "18.0.0"
 
 
 [libraries]
@@ -44,6 +45,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+protolite-well-known-types = { group = "com.google.firebase", name = "protolite-well-known-types", version.ref = "protoliteWellKnownTypes" }
 
 
 [plugins]
