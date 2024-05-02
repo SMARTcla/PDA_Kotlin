@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.screens.AccountsScreen
+import cz.cvut.fel.sit.pda.screens.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.BudgetScreen
 import cz.cvut.fel.sit.pda.screens.CategoriesScreen
@@ -34,6 +35,10 @@ fun AppNavigation() {
 
         composable(GeldScreen.Accounts.name) {
             AccountsScreen(navController, transactions) }
+
+        composable(GeldScreen.AddCardScreen.name) {
+            AddCardScreen(navController) }
+
         composable(GeldScreen.Overview.name) {
             OverviewScreen(navController) }
 

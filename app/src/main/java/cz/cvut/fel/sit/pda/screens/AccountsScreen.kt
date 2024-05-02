@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
@@ -47,7 +48,7 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* Handle add account */ },
+                onClick = { navController.navigate(GeldScreen.AddCardScreen.name) },
                 backgroundColor = MaterialTheme.colors.primary,
                 modifier = Modifier.padding(16.dp)
             ) {
