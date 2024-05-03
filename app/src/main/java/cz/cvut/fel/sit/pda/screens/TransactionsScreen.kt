@@ -33,6 +33,9 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green
+import cz.cvut.fel.sit.pda.ui.theme.PurpleGrey80
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -44,7 +47,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
         .toSortedMap(compareByDescending { it })
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFF586481)
+        color = DefaultColor
     ) {
         Scaffold(
             topBar = {
@@ -62,7 +65,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
                 Column(modifier = Modifier.padding(top = 26.dp)) {
                     FloatingActionButton(
                         onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
-                        backgroundColor = MaterialTheme.colors.primary
+                        backgroundColor = Green
                     ) {
                         Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
                     }
@@ -75,7 +78,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
-                        .background(Color(0xFF586481))
+                        .background(DefaultColor)
                 ) {
                     groupedTransactions.forEach { (date, transactionsForDate) ->
                         stickyHeader {

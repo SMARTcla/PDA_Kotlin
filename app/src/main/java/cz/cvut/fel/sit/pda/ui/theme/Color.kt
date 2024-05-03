@@ -9,6 +9,7 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+val DefaultColor = Color(0xFF586481)
 
 val Red = Color( 0xfff44336)
 val Red50 = Color( 0xffffebee)
@@ -335,3 +336,4 @@ val monk07 = Color( 0xff825c43)
 val monk08 = Color( 0xff604134)
 val monk09 = Color( 0xff3a312a)
 val monk10 = Color( 0xff292420)
+

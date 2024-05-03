@@ -17,6 +17,8 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @Composable
@@ -49,18 +51,19 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate(GeldScreen.AddCardScreen.name) },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = Green,
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Account")
             }
         },
-        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = false
     )
     { innerPadding ->
 
-        Surface(color = Color(0xFF586481), modifier = Modifier.padding(innerPadding) ) {
+        Surface(color = DefaultColor,
+            modifier = Modifier.padding(innerPadding) ) {
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize()

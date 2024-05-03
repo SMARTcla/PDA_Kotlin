@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +33,7 @@ fun CategoriesScreen(navController: NavHostController) {
     ) { innerPadding ->
         Surface(modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding), color = Color(0xFF586481)) {
+            .padding(innerPadding), color = DefaultColor) {
             Text(text = "Content Categories Screen", modifier = Modifier.fillMaxSize())
         }
     }

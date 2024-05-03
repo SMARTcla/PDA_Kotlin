@@ -47,10 +47,13 @@ import java.time.format.DateTimeFormatter
 import android.app.DatePickerDialog
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Grey400
 import java.util.*
 
 
@@ -79,9 +82,14 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
     ) { innerPadding ->
     Surface(
         modifier = Modifier.fillMaxSize().padding(innerPadding),
-        color = Color(0xFF586481)
+        color = DefaultColor
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
             TextField(
                 value = name,
                 onValueChange = { name = it },
@@ -144,6 +152,8 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                     }
                 },
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Grey400)
+
             ) {
                 Text("Add Transaction")
             }
