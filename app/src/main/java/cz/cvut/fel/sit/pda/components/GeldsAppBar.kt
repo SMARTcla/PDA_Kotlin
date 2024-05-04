@@ -23,7 +23,7 @@ import cz.cvut.fel.sit.pda.R
 @Composable
 fun BasicAppBar (
     title: String,
-    navController: NavHostController, // Передаем NavController для навигации
+    navController: NavHostController,
     canNavigateBack: Boolean,
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
@@ -45,9 +45,7 @@ fun BasicAppBar (
             }
         },
         actions = {
-            // Иконка настроек
             IconButton(onClick = {
-                // Действие для открытия страницы настроек
                 navController.navigate(GeldScreen.Settings.name)
             }) {
                 Icon(
