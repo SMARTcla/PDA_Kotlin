@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,6 +20,7 @@ import cz.cvut.fel.sit.pda.screens.budget.BudgetScreen
 import cz.cvut.fel.sit.pda.screens.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.SettingsScreen
+import cz.cvut.fel.sit.pda.screens.TransactionDetailScreen
 import cz.cvut.fel.sit.pda.screens.TransactionsScreen
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
@@ -42,7 +44,6 @@ fun AppNavigation() {
         composable(GeldScreen.Overview.name) {
             OverviewScreen(navController, transactions) }
 
-        // Passing a list of transactions
         composable(GeldScreen.Transactions.name) {
             TransactionsScreen(navController, transactions) }
         composable(GeldScreen.Budget.name) {
@@ -57,6 +58,15 @@ fun AppNavigation() {
             AddTransactionScreen(navController) { transaction ->
                 transactions.add(transaction)
                 navController.popBackStack()
+            }
+        }
+        composable("transactionDetail/{transactionId}") { backStackEntry ->
+            val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
+            val transaction = transactions.find { it.id == transactionId }
+            if (transaction != null) {
+                TransactionDetailScreen(navController, transaction)
+            } else {
+
             }
         }
     }

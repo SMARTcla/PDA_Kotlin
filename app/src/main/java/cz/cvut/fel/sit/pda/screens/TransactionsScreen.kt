@@ -18,12 +18,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -89,7 +92,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
                             TransactionDateHeader(date, transactionsForDate.sumOf { it.amount })
                         }
                         items(transactionsForDate) { transaction ->
-                            TransactionItem(transaction)
+                            TransactionItem(transaction, navController)
                         }
                     }
                 }
@@ -116,7 +119,7 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = date.format(dayOfMonthFormatter), // День месяца
+                text = date.format(dayOfMonthFormatter),
                 style = MaterialTheme.typography.h4,
                 color = Color.White
             )
@@ -124,12 +127,12 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
                 modifier = Modifier.padding(start = 4.dp)
             ) {
                 Text(
-                    text = date.format(dayOfWeekFormatter), // День недели
+                    text = date.format(dayOfWeekFormatter),
                     style = MaterialTheme.typography.body2,
                     color = Color.White
                 )
                 Text(
-                    text = date.format(monthYearFormatter), // Месяц и год
+                    text = date.format(monthYearFormatter),
                     style = MaterialTheme.typography.body2,
                     color = Color.White
                 )
@@ -143,3 +146,37 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
         )
     }
 }
+
+
+
+@Composable
+fun TransactionDetailScreen(navController: NavHostController, transaction: Transaction) {
+    Scaffold(
+        topBar = {
+            BasicAppBar(
+                title = "Transaction Details",
+                navController = navController,
+                canNavigateBack = true,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
+        },
+        content = {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Name: ${transaction.name}", style = MaterialTheme.typography.h6)
+                Text("Amount: ${transaction.amount}", style = MaterialTheme.typography.h6)
+                Text("Type: ${transaction.type.displayName}", style = MaterialTheme.typography.h6)
+                Text("Date: ${transaction.date}", style = MaterialTheme.typography.h6)
+                Text("Category: ${transaction.category}", style = MaterialTheme.typography.h6)
+                Text("Card Used: ${transaction.cardName}", style = MaterialTheme.typography.h6)
+            }
+        }
+    )
+}
+
+
+
+
+

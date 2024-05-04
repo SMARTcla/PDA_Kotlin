@@ -1,8 +1,10 @@
 package cz.cvut.fel.sit.pda.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -83,23 +85,24 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Double) {
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
-            .height(140.dp)
+            .height(70.dp)
             .background(Color(0xFF334455), RoundedCornerShape(8.dp))
             .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier.align(Alignment.CenterStart)
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = transactionType.displayName,
                 color = Color.White,
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(bottom = 4.dp)
+                style = MaterialTheme.typography.h5
             )
             Text(
-                text = "Total amount: $totalAmount CZK",
+                text = "$totalAmount",
                 color = Color.White,
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.h5
             )
         }
     }
