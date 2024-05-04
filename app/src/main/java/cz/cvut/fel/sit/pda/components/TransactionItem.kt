@@ -16,7 +16,7 @@ fun TransactionItem(transaction: Transaction, navController: NavHostController) 
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                navController.navigate("transactionDetail/${transaction.id}") // Убедись, что у транзакции есть ID
+                navController.navigate("transactionDetail/${transaction.id}")
             },
         elevation = 4.dp
     ) {

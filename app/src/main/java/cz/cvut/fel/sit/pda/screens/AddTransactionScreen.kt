@@ -216,7 +216,7 @@ fun DropdownMenu(
                 .clickable { expanded = true }
                 .background(Color.White, shape = RoundedCornerShape(4.dp))
                 .padding(horizontal = 16.dp, vertical = 12.dp)
-                .fillMaxWidth() // Добавлено для растяжения по ширине
+                .fillMaxWidth()
         ) {
             Text(
                 text = selectedType.displayName,
