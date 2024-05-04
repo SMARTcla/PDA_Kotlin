@@ -40,7 +40,7 @@ fun AppNavigation() {
             AddCardScreen(navController) }
 
         composable(GeldScreen.Overview.name) {
-            OverviewScreen(navController) }
+            OverviewScreen(navController, transactions) }
 
         // Passing a list of transactions
         composable(GeldScreen.Transactions.name) {

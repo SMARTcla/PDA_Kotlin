@@ -17,6 +17,7 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @Composable
@@ -25,7 +26,7 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
 
     LaunchedEffect(transactions) {
         val balances = transactions.groupBy { it.cardName }.mapValues { (_, trans) ->
-            trans.sumOf { it.amount }
+            trans.sumOf { if (it.type == TransactionType.SALARY || it.type == TransactionType.BENEFITS) it.amount else -it.amount }
         }
 
         TemporaryDatabase.bankCards.forEach { card ->
@@ -90,7 +91,12 @@ fun AccountItem(account: BankCardWithBalance) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = account.name, style = MaterialTheme.typography.h6)
-            Text(text = "${account.balance} CZK", style = MaterialTheme.typography.h6)
+            val balanceTextColor = if (account.balance >= 0) Color.Green else Color.Red
+            Text(
+                text = "${account.balance} CZK",
+                style = MaterialTheme.typography.h6,
+                color = balanceTextColor
+            )
         }
     }
 }
