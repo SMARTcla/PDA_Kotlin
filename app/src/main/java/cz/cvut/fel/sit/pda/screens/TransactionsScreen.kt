@@ -149,6 +149,7 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
 
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TransactionDetailScreen(navController: NavHostController, transaction: Transaction) {
     Scaffold(
