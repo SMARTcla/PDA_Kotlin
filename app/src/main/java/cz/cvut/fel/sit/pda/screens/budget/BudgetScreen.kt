@@ -37,8 +37,8 @@ fun BudgetScreen(navController: NavHostController) {
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             BudgetExpenses(icon = Icons.Filled.ShoppingCart, amountSpent = 212, budgeted = 1000)
-            BudgetSavings(icon = Icons.Filled.AddCircle, amountSpent = 100, budgeted = 500) // Пример сохранения
-            BudgetIncome(icon = Icons.AutoMirrored.Filled.Send, amountSpent = 1000, budgeted = 3000) // Пример дохода
+            BudgetSavings(icon = Icons.Filled.AddCircle, amountSpent = 100, budgeted = 500)
+            BudgetIncome(icon = Icons.AutoMirrored.Filled.Send, amountSpent = 1000, budgeted = 3000)
         }
     }
 }
