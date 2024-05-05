@@ -40,6 +40,7 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.updateTransaction
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 import java.time.LocalDate
@@ -75,7 +76,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
                 Column(modifier = Modifier.padding(top = 26.dp)) {
                     FloatingActionButton(
                         onClick = { navController.navigate(GeldScreen.AddTransaction.name) },
-                        backgroundColor = MaterialTheme.colors.primary
+                        backgroundColor = DeepPurple500
                     ) {
                         Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
                     }
@@ -203,7 +204,7 @@ fun TransactionDetailScreen(navController: NavHostController, transaction: Trans
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
                     Text("Edit", color = Color.White)
                 }
@@ -341,7 +342,7 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
                         navController.popBackStack()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
                     Text("Done")
                 }
