@@ -7,9 +7,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.components.BasicAppBar
+import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Grey400
+import cz.cvut.fel.sit.pda.ui.theme.Grey50
+import cz.cvut.fel.sit.pda.ui.theme.Grey900
+import cz.cvut.fel.sit.pda.ui.theme.PurpleGrey80
+import cz.cvut.fel.sit.pda.ui.theme.white
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -19,30 +29,49 @@ fun AddCardScreen(navController: NavHostController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Add New Card") }, navigationIcon = {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                }
-            })
-        }
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            TextField(
-                value = cardName,
-                onValueChange = { cardName = it },
-                label = { Text("Card Name") }
+            BasicAppBar(
+                title = "Add New Card",
+                navController = navController,
+                canNavigateBack = true,
+                onNavigateBack = { navController.popBackStack() }
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = {
-                    if (cardName.isNotEmpty()) {
-                        TemporaryDatabase.bankCards.add(BankCard(cardName))
-                        navController.popBackStack()
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
+        }
+    ) { innerPadding ->
+        Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding)) {
+            Column(modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize()
             ) {
-                Text("Add Card")
+                OutlinedTextField(
+                    value = cardName,
+                    onValueChange = { cardName = it },
+                    label = { Text("Card Name") },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        textColor = Color.White,
+                        cursorColor = Color.White,
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.White,
+                        focusedLabelColor = Color.White,
+                        unfocusedLabelColor = Color.White
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = {
+                        if (cardName.isNotEmpty()) {
+                            TemporaryDatabase.bankCards.add(BankCard(cardName))
+                            navController.popBackStack()
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
+                ) {
+                    Text("Add Card", color = Grey50)
+                }
             }
         }
     }

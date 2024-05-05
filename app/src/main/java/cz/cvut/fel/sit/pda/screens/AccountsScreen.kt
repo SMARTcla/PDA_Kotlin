@@ -7,17 +7,18 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green700
+import cz.cvut.fel.sit.pda.ui.theme.Pink800
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @Composable
@@ -50,18 +51,18 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate(GeldScreen.AddCardScreen.name) },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = DeepPurple500,
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Account")
             }
         },
-        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = false
     )
     { innerPadding ->
 
-        Surface(color = Color(0xFF586481), modifier = Modifier.padding(innerPadding) ) {
+        Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding) ) {
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
@@ -91,7 +92,7 @@ fun AccountItem(account: BankCardWithBalance) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = account.name, style = MaterialTheme.typography.h6)
-            val balanceTextColor = if (account.balance >= 0) Color.Green else Color.Red
+            val balanceTextColor = if (account.balance >= 0) Green700 else Pink800
             Text(
                 text = "${account.balance} CZK",
                 style = MaterialTheme.typography.h6,
