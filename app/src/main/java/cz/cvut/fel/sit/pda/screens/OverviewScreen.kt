@@ -28,6 +28,7 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -74,7 +75,7 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (isExpensesSelected) MaterialTheme.colors.primary else Color.White,
+                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Color.White,
                             contentColor = if (isExpensesSelected) Color.White else Color.Black
                         )
                     ) {
@@ -87,7 +88,7 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (!isExpensesSelected) MaterialTheme.colors.primary else Color.White,
+                            backgroundColor = if (!isExpensesSelected) DeepPurple500 else Color.White,
                             contentColor = if (!isExpensesSelected) Color.White else Color.Black
                         )
                     ) {
