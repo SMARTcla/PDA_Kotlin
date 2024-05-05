@@ -18,6 +18,7 @@ import cz.cvut.fel.sit.pda.screens.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.budget.BudgetScreen
 import cz.cvut.fel.sit.pda.screens.CategoriesScreen
+import cz.cvut.fel.sit.pda.screens.EditTransactionScreen
 import cz.cvut.fel.sit.pda.screens.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.TransactionDetailScreen
@@ -69,9 +70,26 @@ fun AppNavigation() {
 
             }
         }
+
+
+        composable("editTransaction/{transactionId}") { backStackEntry ->
+            val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
+            val transaction = transactions.find { it.id == transactionId }
+            if (transaction != null) {
+                EditTransactionScreen(navController, transaction, transactions)
+            } else {
+
+            }
+        }
     }
 }
 
+fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
+    val index = this.indexOfFirst { it.id == updatedTransaction.id }
+    if (index != -1) {
+        this[index] = updatedTransaction
+    }
+}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
