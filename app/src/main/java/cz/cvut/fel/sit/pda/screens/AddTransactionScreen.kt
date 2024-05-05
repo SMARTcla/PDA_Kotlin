@@ -31,6 +31,8 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.Grey50
 import java.util.*
 
 
@@ -79,7 +81,7 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (isExpensesSelected) MaterialTheme.colors.primary else Color.White,
+                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Color.White,
                             contentColor = if (isExpensesSelected) Color.White else Color.Black
                         )
                     ) {
@@ -91,7 +93,7 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (!isExpensesSelected) MaterialTheme.colors.primary else Color.White,
+                            backgroundColor = if (!isExpensesSelected) DeepPurple500 else Color.White,
                             contentColor = if (!isExpensesSelected) Color.White else Color.Black
                         )
                     ) {
@@ -138,7 +140,8 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                                 selectedDate = date
                             }
                         }) {
-                            Icon(Icons.Default.DateRange, contentDescription = "Select Date", tint = Color.White)
+                            Icon(Icons.Default.DateRange, contentDescription = "Select Date",
+                                tint = Color.White)
                         }
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -188,9 +191,9 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                         }
                     },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
-                    Text("Add Transaction", color = Color.White)
+                    Text("Add Transaction", color = Grey50)
                 }
             }
         }
