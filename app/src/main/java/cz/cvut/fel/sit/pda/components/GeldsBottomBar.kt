@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.R
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.Green
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
@@ -60,9 +61,9 @@ fun GeldsBottomBar(navController: NavHostController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Green,
+                    selectedIconColor = DeepPurple500,
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    selectedTextColor = Green,
+                    selectedTextColor = DeepPurple500,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             )
