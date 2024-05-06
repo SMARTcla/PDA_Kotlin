@@ -1,12 +1,15 @@
 package cz.cvut.fel.sit.pda
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,6 +22,7 @@ import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.budget.BudgetScreen
 import cz.cvut.fel.sit.pda.screens.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.EditTransactionScreen
+import cz.cvut.fel.sit.pda.screens.NotificationsScreen
 import cz.cvut.fel.sit.pda.screens.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.TransactionDetailScreen
@@ -31,6 +35,8 @@ import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 fun AppNavigation() {
     val navController = rememberNavController()
     val transactions = remember { mutableStateListOf<Transaction>() }
+    val context = LocalContext.current
+    val notificationEnabled = remember { mutableStateOf(getNotificationEnabled(context)) }
 
     NavHost(navController = navController,
         startDestination = GeldScreen.Accounts.name,
@@ -54,6 +60,16 @@ fun AppNavigation() {
 
         composable(GeldScreen.Settings.name) {
             SettingsScreen(navController) }
+
+        composable(GeldScreen.Notifications.name) {
+            NotificationsScreen(navController, notificationEnabled.value) { enabled ->
+                notificationEnabled.value = enabled
+                val editor = context.getSharedPreferences("AppSettings",
+                    Context.MODE_PRIVATE).edit()
+                editor.putBoolean("NotificationsEnabled", enabled)
+                editor.apply()
+            }
+        }
 
         composable(GeldScreen.AddTransaction.name) {
             AddTransactionScreen(navController) { transaction ->
@@ -83,6 +99,12 @@ fun AppNavigation() {
         }
     }
 }
+
+fun getNotificationEnabled(context: Context): Boolean {
+    val sharedPref = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+    return sharedPref.getBoolean("NotificationsEnabled", true) // Default is true
+}
+
 
 fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
     val index = this.indexOfFirst { it.id == updatedTransaction.id }
