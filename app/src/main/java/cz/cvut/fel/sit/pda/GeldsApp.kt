@@ -8,7 +8,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,7 +16,7 @@ import cz.cvut.fel.sit.pda.screens.AccountsScreen
 import cz.cvut.fel.sit.pda.screens.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.budget.BudgetScreen
-import cz.cvut.fel.sit.pda.screens.CategoriesScreen
+import cz.cvut.fel.sit.pda.screens.budget.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.EditTransactionScreen
 import cz.cvut.fel.sit.pda.screens.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.SettingsScreen
@@ -50,7 +49,7 @@ fun AppNavigation() {
         composable(GeldScreen.Budget.name) {
             BudgetScreen(navController) }
         composable(GeldScreen.Categories.name) {
-            CategoriesScreen(navController) }
+            CategoriesScreen(navController, transactions) }
 
         composable(GeldScreen.Settings.name) {
             SettingsScreen(navController) }
