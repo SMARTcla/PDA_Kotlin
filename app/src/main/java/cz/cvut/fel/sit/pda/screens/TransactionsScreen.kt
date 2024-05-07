@@ -41,6 +41,7 @@ import cz.cvut.fel.sit.pda.components.TransactionItem
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.updateTransaction
 import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 import java.time.LocalDate
@@ -58,7 +59,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFF586481)
+        color = DefaultColor
     ) {
         Scaffold(
             topBar = {
@@ -89,7 +90,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
-                        .background(Color(0xFF586481))
+                        .background(DefaultColor)
                 ) {
                     groupedTransactions.forEach { (date, transactionsForDate) ->
                         stickyHeader {
@@ -173,7 +174,7 @@ fun TransactionDetailScreen(navController: NavHostController, transaction: Trans
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            color = Color(0xFF586481)
+            color = DefaultColor
         ) {
             Column(
                 modifier = Modifier
@@ -252,7 +253,7 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
     ) { innerPadding ->
         Surface(
             modifier = Modifier.fillMaxSize().padding(innerPadding),
-            color = Color(0xFF586481)
+            color = DefaultColor
         ) {
             Column(
                 modifier = Modifier

@@ -32,6 +32,7 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
 import java.util.*
 
@@ -62,7 +63,7 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
     ) { innerPadding ->
         Surface(
             modifier = Modifier.fillMaxSize().padding(innerPadding),
-            color = Color(0xFF586481)
+            color = DefaultColor
         ) {
             Column(
                 modifier = Modifier
