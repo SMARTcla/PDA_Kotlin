@@ -29,6 +29,7 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -60,7 +61,7 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
     ) { innerPadding ->
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Color(0xFF586481)
+            color = DefaultColor
         ) {
             Column(modifier = Modifier.padding(innerPadding)) {
                 Row(
@@ -99,7 +100,7 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color(0xFF586481))
+                        .background(DefaultColor)
                 ) {
                     groupedTransactions.forEach { (transactionType, transactionsForType) ->
                         item {
