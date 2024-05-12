@@ -1,5 +1,6 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.accounts
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,16 +14,16 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Green700
 import cz.cvut.fel.sit.pda.ui.theme.Pink800
-import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @Composable
-fun AccountsScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
+fun AccountsScreen(navController: NavHostController, transactions: MutableList<Transaction>, cards: MutableList<BankCard>) {
     val accountsWithBalances = remember { mutableStateListOf<BankCardWithBalance>() }
 
     LaunchedEffect(transactions) {
@@ -30,7 +31,7 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
             trans.sumOf { if (it.type == TransactionType.SALARY || it.type == TransactionType.BENEFITS) it.amount else -it.amount }
         }
 
-        TemporaryDatabase.bankCards.forEach { card ->
+        cards.forEach { card ->
             val balance = balances[card.name] ?: 0.0
             accountsWithBalances.add(BankCardWithBalance(card.name, balance))
         }
@@ -62,13 +63,10 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
     )
     { innerPadding ->
 
-        Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding) ) {
-
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
+        Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding)) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(accountsWithBalances) { account ->
-                    AccountItem(account)
+                    AccountItem(account, navController)
                 }
             }
         }
@@ -78,11 +76,12 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
 data class BankCardWithBalance(val name: String, val balance: Double)
 
 @Composable
-fun AccountItem(account: BankCardWithBalance) {
+fun AccountItem(account: BankCardWithBalance, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable { navController.navigate("cardDetails/${account.name}") },
         elevation = 2.dp
     ) {
         Row(
@@ -101,3 +100,8 @@ fun AccountItem(account: BankCardWithBalance) {
         }
     }
 }
+
+fun deleteCard(card: BankCard, cardsList: MutableList<BankCard>) {
+    cardsList.remove(card)
+}
+

@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.overview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

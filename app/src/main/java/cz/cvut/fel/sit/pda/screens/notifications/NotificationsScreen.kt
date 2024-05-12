@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.notifications
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column

@@ -1,10 +1,8 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.accounts
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,16 +13,11 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.ui.theme.Grey400
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
-import cz.cvut.fel.sit.pda.ui.theme.Grey900
-import cz.cvut.fel.sit.pda.ui.theme.PurpleGrey80
-import cz.cvut.fel.sit.pda.ui.theme.white
-import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AddCardScreen(navController: NavHostController) {
+fun AddCardScreen(navController: NavHostController, cards: MutableList<BankCard>) {
     var cardName by remember { mutableStateOf("") }
 
     Scaffold(
@@ -63,7 +56,7 @@ fun AddCardScreen(navController: NavHostController) {
                 Button(
                     onClick = {
                         if (cardName.isNotEmpty()) {
-                            TemporaryDatabase.bankCards.add(BankCard(cardName))
+                            cards.add(BankCard(cardName))
                             navController.popBackStack()
                         }
                     },

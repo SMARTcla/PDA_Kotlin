@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.transactions
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -38,12 +38,12 @@ import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.components.TransactionItem
+import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.updateTransaction
-import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -154,9 +154,13 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
 
 
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TransactionDetailScreen(navController: NavHostController, transaction: Transaction) {
+fun TransactionDetailScreen(
+    navController: NavHostController,
+    transaction: Transaction,
+    transactions: MutableList<Transaction>,
+    onDelete: (Transaction) -> Unit
+) {
     Scaffold(
         topBar = {
             BasicAppBar(
@@ -174,7 +178,7 @@ fun TransactionDetailScreen(navController: NavHostController, transaction: Trans
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            color = DefaultColor
+            color = MaterialTheme.colors.surface
         ) {
             Column(
                 modifier = Modifier
@@ -187,8 +191,7 @@ fun TransactionDetailScreen(navController: NavHostController, transaction: Trans
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
-                        elevation = 2.dp,
-                        backgroundColor = Color.White
+                        elevation = 2.dp
                     ) {
                         Text(
                             text = info,
@@ -204,10 +207,20 @@ fun TransactionDetailScreen(navController: NavHostController, transaction: Trans
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
+                        .padding(bottom = 8.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
                     Text("Edit", color = Color.White)
+                }
+                Button(
+                    onClick = {
+                        onDelete(transaction)
+                        navController.popBackStack()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                ) {
+                    Text("Delete", color = Color.White)
                 }
             }
         }
@@ -225,132 +238,10 @@ private fun Transaction.toInfoList(): List<String> {
     )
 }
 
-
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun EditTransactionScreen(navController: NavHostController, transaction: Transaction, transactions: MutableList<Transaction>) {
-    var name by remember { mutableStateOf(transaction.name) }
-    var amount by remember { mutableStateOf(transaction.amount.toString()) }
-    var selectedType by remember { mutableStateOf(transaction.type) }
-    var selectedDate by remember { mutableStateOf(transaction.date) }
-    var selectedCard by remember { mutableStateOf(TemporaryDatabase.bankCards.first().name) }
-    var isExpensesSelected by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-    Scaffold(
-        topBar = {
-            BasicAppBar(
-                title = "Edit Transaction",
-                navController = navController,
-                canNavigateBack = true,
-                onNavigateBack = { navController.popBackStack() }
-            )
-        },
-        bottomBar = {
-            GeldsBottomBar(navController)
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier.fillMaxSize().padding(innerPadding),
-            color = DefaultColor
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 20.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Name", color = Color.White) },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = amount,
-                    onValueChange = { amount = it },
-                    label = { Text("Amount", color = Color.White) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = selectedDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
-                    onValueChange = {},
-                    label = { Text("Date", color = Color.White) },
-                    readOnly = true,
-                    trailingIcon = {
-                        IconButton(onClick = {
-                            showDatePicker(context, selectedDate) { date ->
-                                selectedDate = date
-                            }
-                        }) {
-                            Icon(Icons.Default.DateRange, contentDescription = "Select Date", tint = Color.White)
-                        }
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        disabledTextColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                DropdownMenu(
-                    selectedType = selectedType,
-                    onTypeSelected = { selectedType = it },
-                    transactionTypes = if (isExpensesSelected) {
-                        TransactionType.values().toList().filter { it.category == "Expenses" }
-                    } else {
-                        TransactionType.values().toList().filter { it.category == "Income" }
-                    }
-                )
-                CardDropdownMenu(
-                    selectedCard = selectedCard,
-                    onCardSelected = { selectedCard = it },
-                    bankCards = TemporaryDatabase.bankCards
-                )
-                Button(
-                    onClick = {
-                        val updatedTransaction = transaction.copy(
-                            name = name,
-                            amount = amount.toDouble(),
-                            type = selectedType,
-                            date = selectedDate,
-                            cardName = selectedCard
-                        )
-                        transactions.updateTransaction(updatedTransaction)
-                        navController.popBackStack()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
-                ) {
-                    Text("Done")
-                }
-            }
-        }
-    }
+fun deleteTransaction(transaction: Transaction, transactions: MutableList<Transaction>) {
+    transactions.remove(transaction)
 }
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
