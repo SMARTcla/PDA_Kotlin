@@ -1,7 +1,6 @@
-package cz.cvut.fel.sit.pda.screens
+package cz.cvut.fel.sit.pda.screens.transactions
 
 import androidx.compose.material.*
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.*
@@ -11,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,14 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
-import cz.cvut.fel.sit.pda.utils.TemporaryDatabase
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import android.app.DatePickerDialog
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.filled.ArrowDropDown
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
@@ -39,13 +35,13 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddTransactionScreen(navController: NavHostController, addTransaction: (Transaction) -> Unit) {
+fun AddTransactionScreen(navController: NavHostController, addTransaction: (Transaction) -> Unit, cards: MutableList<BankCard>) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
     var selectedType by remember { mutableStateOf(TransactionType.RESTAURANT) }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     val context = LocalContext.current
-    var selectedCard by remember { mutableStateOf(TemporaryDatabase.bankCards.first().name) }
+    var selectedCard by remember { mutableStateOf(cards.first().name) }
     var isExpensesSelected by remember { mutableStateOf(true) }
 
     Scaffold(
@@ -168,7 +164,7 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                 CardDropdownMenu(
                     selectedCard = selectedCard,
                     onCardSelected = { selectedCard = it },
-                    bankCards = TemporaryDatabase.bankCards
+                    bankCards = cards
                 )
                 Button(
                     onClick = {

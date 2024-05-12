@@ -30,7 +30,6 @@ fun GeldsBottomBar(navController: NavHostController) {
         Triple(R.drawable.accounts, stringResource(R.string.accounts_tab_name), GeldScreen.Accounts.name),
         Triple(R.drawable.overview, stringResource(R.string.overview_tab_name), GeldScreen.Overview.name),
         Triple(R.drawable.transactions, stringResource(R.string.transactions_tab_name), GeldScreen.Transactions.name),
-        Triple(R.drawable.budget, stringResource(R.string.budget_tab_name), GeldScreen.Budget.name),
         Triple(R.drawable.categories, stringResource(R.string.categories_tab_name), GeldScreen.Categories.name)
         )
 

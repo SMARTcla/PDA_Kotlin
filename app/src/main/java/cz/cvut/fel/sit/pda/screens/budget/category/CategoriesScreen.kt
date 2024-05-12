@@ -3,17 +3,10 @@ package cz.cvut.fel.sit.pda.screens.budget.category
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,7 +27,6 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
-import cz.cvut.fel.sit.pda.screens.TransactionTypeItem
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.R
