@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens.budget.category
+package cz.cvut.fel.sit.pda.screens.category
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
