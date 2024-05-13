@@ -23,7 +23,6 @@ import cz.cvut.fel.sit.pda.screens.accounts.CardDetailScreen
 import cz.cvut.fel.sit.pda.screens.accounts.EditCardScreen
 import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.transactions.EditTransactionScreen
-import cz.cvut.fel.sit.pda.screens.settings.NotificationsScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.TransactionDetailScreen
@@ -63,15 +62,15 @@ fun AppNavigation() {
         composable(GeldScreen.Settings.name) {
             SettingsScreen(navController) }
 
-        composable(GeldScreen.Notifications.name) {
-            NotificationsScreen(navController, notificationEnabled.value) { enabled ->
-                notificationEnabled.value = enabled
-                val editor = context.getSharedPreferences("AppSettings",
-                    Context.MODE_PRIVATE).edit()
-                editor.putBoolean("NotificationsEnabled", enabled)
-                editor.apply()
-            }
-        }
+//        composable(GeldScreen.Notifications.name) {
+//            NotificationsScreen(navController, notificationEnabled.value) { enabled ->
+//                notificationEnabled.value = enabled
+//                val editor = context.getSharedPreferences("AppSettings",
+//                    Context.MODE_PRIVATE).edit()
+//                editor.putBoolean("NotificationsEnabled", enabled)
+//                editor.apply()
+//            }
+//        }
 
         composable(GeldScreen.AddTransaction.name) {
             AddTransactionScreen(navController, { transaction ->
