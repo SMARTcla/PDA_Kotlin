@@ -63,19 +63,18 @@ fun CategoriesScreen(navController: NavHostController, transactions: MutableList
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                // Display categories around the button
-                CategoriesGrid(isExpensesSelected, TransactionType.values().toList(), groupedTransactions)
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 // Use the custom RoundedButton here
                 RoundedButton(
                     isExpensesSelected = isExpensesSelected,
                     onToggle = { isExpensesSelected = !isExpensesSelected }
                 )
+                Spacer(modifier = Modifier.height(32.dp))
+
+                // Display categories around the button
+                CategoriesGrid(isExpensesSelected, TransactionType.entries, groupedTransactions)
 
                 Spacer(modifier = Modifier.height(16.dp))
-
             }
         }
     }
@@ -96,7 +95,7 @@ fun RoundedButton(isExpensesSelected: Boolean, onToggle: () -> Unit) {
             text = if (isExpensesSelected) "Go to Income" else "Go to Expenses",
             style = TextStyle(
                 color = Color.White, // Цвет текста
-                fontSize = 18.sp, // Размер шрифта
+                fontSize = 16.sp, // Размер шрифта
                 fontWeight = FontWeight.Bold // Жирность шрифта
             )
         )
@@ -128,31 +127,32 @@ fun CategoryIcon(category: TransactionType, sum: Double) {
     val imageRes = when (category) {
         TransactionType.RESTAURANT -> R.drawable.restaurant
         TransactionType.GROCERIES -> R.drawable.groceries
-//TODO need to add new SVG Icons
-//        TransactionType.SUBSCRIPTIONS -> R.drawable.subscriptions
-//        TransactionType.ENTERTAINMENT -> R.drawable.entertainment
-//        TransactionType.UTILITIES -> R.drawable.utilities
-//        TransactionType.RENT -> R.drawable.rent
         TransactionType.TRANSPORT -> R.drawable.transport
         TransactionType.HEALTHCARE -> R.drawable.health
-//        TransactionType.INSURANCE -> R.drawable.insurance
+        TransactionType.LEISURE -> R.drawable.leisure
         TransactionType.GIFTS -> R.drawable.gifts
-        TransactionType.CLOTHING -> R.drawable.rating
-//        TransactionType.EDUCATION -> R.drawable.education
-        TransactionType.PERSONAL_CARE -> R.drawable.health
-//        TransactionType.TRAVEL -> R.drawable.travel
-//        TransactionType.OTHER -> R.drawable.other
-//        TransactionType.SALARY -> R.drawable.salary
-//        TransactionType.BENEFITS -> R.drawable.benefits
+        TransactionType.SHOPPING -> R.drawable.shopping
+        TransactionType.FAMILY -> R.drawable.family
+        TransactionType.OTHER_EXP -> R.drawable.other
+        TransactionType.SALARY -> R.drawable.salary
+        TransactionType.BENEFITS -> R.drawable.benefits
+        TransactionType.OTHER_INC -> R.drawable.other
+
         else -> R.drawable.main // Use a default icon
     }
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp) // Добавляет отступы вокруг каждой иконки для лучшего визуального разделения
+        modifier = Modifier.padding(20.dp)
+    // Добавляет отступы вокруг каждой иконки для лучшего визуального разделения
     ) {
-        Image(painter = iconPainter, contentDescription = category.displayName, modifier = Modifier.size(40.dp)) // Задаем размер иконки
-        Text(text = category.displayName, modifier = Modifier.padding(top = 4.dp, bottom = 2.dp))
+        Image(painter = iconPainter,
+            contentDescription = category.displayName,
+            modifier = Modifier.size(40.dp)) // Задаем размер иконки
+        Text(text = category.displayName,
+            modifier = Modifier.padding(
+                top = 4.dp,
+                bottom = 4.dp))
         Text(text = "$sum CZK", style = MaterialTheme.typography.bodyLarge)
     }
 }
