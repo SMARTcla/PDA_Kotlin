@@ -47,8 +47,8 @@ fun CategoriesScreen(navController: NavHostController, transactions: MutableList
             BasicAppBar(
                 title = if (isExpensesSelected) "Expenses" else "Income",
                 navController = navController,
-                canNavigateBack = true,
-                onNavigateBack = { navController.popBackStack() }
+                canNavigateBack = false,
+                onNavigateBack = { }
             )
         },
         bottomBar = {

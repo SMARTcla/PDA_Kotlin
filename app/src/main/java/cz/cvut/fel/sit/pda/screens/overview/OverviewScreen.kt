@@ -51,8 +51,8 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
             BasicAppBar(
                 title = "Overview",
                 navController = navController,
-                canNavigateBack = true,
-                onNavigateBack = { navController.popBackStack() }
+                canNavigateBack = false,
+                onNavigateBack = { }
             )
         },
         bottomBar = {
