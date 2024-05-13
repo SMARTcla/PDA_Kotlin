@@ -32,7 +32,7 @@ class NotificationService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val futureInMillis = System.currentTimeMillis() + 6000 // 10 seconds later
+        val futureInMillis = System.currentTimeMillis() + 360000 // 1 hour later
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent)
     }

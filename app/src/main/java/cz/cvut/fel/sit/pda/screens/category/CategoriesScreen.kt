@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -30,6 +29,7 @@ import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.R
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -144,15 +144,20 @@ fun CategoryIcon(category: TransactionType, sum: Double) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(20.dp)
-    // Добавляет отступы вокруг каждой иконки для лучшего визуального разделения
+    // padding around each icon for better visual separation
     ) {
         Image(painter = iconPainter,
             contentDescription = category.displayName,
-            modifier = Modifier.size(40.dp)) // Задаем размер иконки
+            modifier = Modifier.size(80.dp)
+        ) // Icon size
+
         Text(text = category.displayName,
-            modifier = Modifier.padding(
-                top = 4.dp,
-                bottom = 4.dp))
-        Text(text = "$sum CZK", style = MaterialTheme.typography.bodyLarge)
+            modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
+            style = TextStyle(color = Indigo50, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        )
+
+        Text(text = "$sum CZK",
+            style = TextStyle(color = Indigo50, fontSize = 12.sp)
+        )
     }
 }
