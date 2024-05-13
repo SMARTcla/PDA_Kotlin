@@ -3,7 +3,7 @@ package cz.cvut.fel.sit.pda.screens.settings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,7 +24,8 @@ fun SettingsScreen(navController: NavHostController) {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            SettingsDrawerContent(navController = navController, onDestinationClicked = {
+            SettingsDrawerContent(navController = navController,
+                onDestinationClicked = {
                 scope.launch {
                     drawerState.close()
                 }
@@ -39,7 +40,8 @@ fun SettingsScreen(navController: NavHostController) {
                         IconButton(onClick = {
                             navController.popBackStack()
                         }) {
-                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back")
                         }
                     }
                 )
@@ -57,18 +59,22 @@ fun SettingsDrawerContent(navController: NavHostController, onDestinationClicked
             navController.navigate(GeldScreen.Notifications.name)
             onDestinationClicked()
         })
-        Text("Version", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("Rate us", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("Support", modifier = Modifier.clickable(onClick = onDestinationClicked))
+        Text("Version", modifier = Modifier.clickable(
+            onClick = onDestinationClicked))
+        Text("About us", modifier = Modifier.clickable(
+            onClick = onDestinationClicked))
+        Text("Support", modifier = Modifier.clickable(
+            onClick = onDestinationClicked))
     }
 }
 
 @Composable
 fun SettingsContent(navController: NavHostController, paddingValues: PaddingValues) {
     Column(modifier = Modifier.padding(paddingValues)) {
-        OptionItem("Notifications", onClick = { navController.navigate(GeldScreen.Notifications.name) })
+        OptionItem("Notifications", onClick = {
+            navController.navigate(GeldScreen.Notifications.name) })
         OptionItem("Version")
-        OptionItem("Rate us")
+        OptionItem("About us")
         OptionItem("Support")
     }
 }

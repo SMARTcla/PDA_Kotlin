@@ -23,7 +23,7 @@ import cz.cvut.fel.sit.pda.screens.accounts.CardDetailScreen
 import cz.cvut.fel.sit.pda.screens.accounts.EditCardScreen
 import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.transactions.EditTransactionScreen
-import cz.cvut.fel.sit.pda.screens.notifications.NotificationsScreen
+import cz.cvut.fel.sit.pda.screens.settings.NotificationsScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.TransactionDetailScreen
