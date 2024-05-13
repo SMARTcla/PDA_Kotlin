@@ -148,7 +148,7 @@ fun CategoryIcon(category: TransactionType, sum: Double) {
     ) {
         Image(painter = iconPainter,
             contentDescription = category.displayName,
-            modifier = Modifier.size(80.dp)
+            modifier = Modifier.size(70.dp)
         ) // Icon size
 
         Text(text = category.displayName,
