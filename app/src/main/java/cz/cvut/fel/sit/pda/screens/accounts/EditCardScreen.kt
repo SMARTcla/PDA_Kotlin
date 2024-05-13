@@ -79,6 +79,7 @@ fun EditCardScreen(
                     onClick = {
                         onUpdate(card.copy(name = cardName))
                         navController.popBackStack()
+                        navController.popBackStack()
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
