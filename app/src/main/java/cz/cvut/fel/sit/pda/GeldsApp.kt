@@ -38,8 +38,6 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val transactions = remember { mutableStateListOf<Transaction>() }
     val cards = remember { mutableStateListOf<BankCard>() }
-    val context = LocalContext.current
-    val notificationEnabled = remember { mutableStateOf(getNotificationEnabled(context)) }
 
     NavHost(navController = navController,
         startDestination = GeldScreen.Accounts.name,
