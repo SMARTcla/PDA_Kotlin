@@ -6,14 +6,17 @@ enum class GeldScreen() {
     Transactions,
     Categories,
     AddTransaction,
+    EditTransaction,
+    TransactionDetails,
     Settings,
     AddCardScreen,
+    EditCardScreen,
+    CardDetails,
     AddAccounts,
     Income,
     Expenses,
     Notifications,
     Version,
-    Rating,
     Support
 
 
