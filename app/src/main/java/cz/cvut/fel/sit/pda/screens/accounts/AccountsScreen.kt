@@ -75,32 +75,6 @@ fun AccountsScreen(navController: NavHostController, transactions: MutableList<T
 
 data class BankCardWithBalance(val name: String, val balance: Double)
 
-@Composable
-fun AccountItem(account: BankCardWithBalance, navController: NavHostController) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-            .clickable { navController.navigate("cardDetails/${account.name}") },
-        elevation = 2.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = account.name, style = MaterialTheme.typography.h6)
-            val balanceTextColor = if (account.balance >= 0) Green700 else Pink800
-            Text(
-                text = "${account.balance} CZK",
-                style = MaterialTheme.typography.h6,
-                color = balanceTextColor
-            )
-        }
-    }
-}
-
 fun deleteCard(card: BankCard, cardsList: MutableList<BankCard>) {
     cardsList.remove(card)
 }
