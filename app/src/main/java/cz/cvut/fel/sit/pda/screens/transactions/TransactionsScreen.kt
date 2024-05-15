@@ -1,6 +1,5 @@
 package cz.cvut.fel.sit.pda.screens.transactions
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -30,20 +28,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.components.TransactionItem
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.updateTransaction
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -106,128 +99,7 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun TransactionDateHeader(date: LocalDate, totalAmount: Double) {
-    val dayOfMonthFormatter = DateTimeFormatter.ofPattern("dd")
-    val monthYearFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
-    val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .background(Color(0xFF69789A)),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Column(
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = date.format(dayOfMonthFormatter),
-                style = MaterialTheme.typography.h4,
-                color = Color.White
-            )
-            Column(
-                modifier = Modifier.padding(start = 4.dp)
-            ) {
-                Text(
-                    text = date.format(dayOfWeekFormatter),
-                    style = MaterialTheme.typography.body2,
-                    color = Color.White
-                )
-                Text(
-                    text = date.format(monthYearFormatter),
-                    style = MaterialTheme.typography.body2,
-                    color = Color.White
-                )
-            }
-        }
-        Text(
-            text = "${totalAmount} CZK",
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.align(Alignment.CenterVertically),
-            color = Color.White
-        )
-    }
-}
-
-
-
-@Composable
-fun TransactionDetailScreen(
-    navController: NavHostController,
-    transaction: Transaction,
-    transactions: MutableList<Transaction>,
-    onDelete: (Transaction) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            BasicAppBar(
-                title = "Transaction Details",
-                navController = navController,
-                canNavigateBack = true,
-                onNavigateBack = { navController.popBackStack() }
-            )
-        },
-        bottomBar = {
-            GeldsBottomBar(navController)
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            color = MaterialTheme.colors.surface
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            ) {
-                val typography = MaterialTheme.typography
-                transaction.toInfoList().forEach { info ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        elevation = 2.dp
-                    ) {
-                        Text(
-                            text = info,
-                            style = typography.h6,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
-                Spacer(Modifier.height(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate("editTransaction/${transaction.id}")
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-                ) {
-                    Text("Edit", color = Color.White)
-                }
-                Button(
-                    onClick = {
-                        onDelete(transaction)
-                        navController.popBackStack()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
-                ) {
-                    Text("Delete", color = Color.White)
-                }
-            }
-        }
-    }
-}
-
-private fun Transaction.toInfoList(): List<String> {
+fun Transaction.toInfoList(): List<String> {
     return listOf(
         "Name: $name",
         "Amount: $amount",
