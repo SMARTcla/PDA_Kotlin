@@ -38,8 +38,6 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val transactions = remember { mutableStateListOf<Transaction>() }
     val cards = remember { mutableStateListOf<BankCard>() }
-    val context = LocalContext.current
-    val notificationEnabled = remember { mutableStateOf(getNotificationEnabled(context)) }
 
     NavHost(navController = navController,
         startDestination = GeldScreen.Accounts.name,
@@ -62,16 +60,6 @@ fun AppNavigation() {
         composable(GeldScreen.Settings.name) {
             SettingsScreen(navController) }
 
-//        composable(GeldScreen.Notifications.name) {
-//            NotificationsScreen(navController, notificationEnabled.value) { enabled ->
-//                notificationEnabled.value = enabled
-//                val editor = context.getSharedPreferences("AppSettings",
-//                    Context.MODE_PRIVATE).edit()
-//                editor.putBoolean("NotificationsEnabled", enabled)
-//                editor.apply()
-//            }
-//        }
-
         composable(GeldScreen.AddTransaction.name) {
             AddTransactionScreen(navController, { transaction ->
                 transactions.add(transaction)
@@ -79,42 +67,43 @@ fun AppNavigation() {
             }, cards)
         }
 
-        composable("transactionDetail/{transactionId}") { backStackEntry ->
+        composable(GeldScreen.TransactionDetails.name + "/{transactionId}") { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = transactions.find { it.id == transactionId }
             if (transaction != null) {
-                TransactionDetailScreen(navController, transaction, transactions, { transactionToDelete ->
+                TransactionDetailScreen(navController, transaction, transactions) { transactionToDelete ->
                     deleteTransaction(transactionToDelete, transactions)
-                })
+                }
             } else {
-
+                // Handle error case
             }
         }
-        composable("cardDetails/{cardName}") { backStackEntry ->
+
+        composable(GeldScreen.CardDetails.name + "/{cardName}") { backStackEntry ->
             backStackEntry.arguments?.getString("cardName")?.let { cardName ->
                 val card = cards.find { it.name == cardName }
                 if (card != null) {
-                    CardDetailScreen(navController, card, { cardToDelete ->
+                    CardDetailScreen(navController, card) { cardToDelete ->
                         deleteCard(cardToDelete, cards)
-                    })
+                    }
                 } else {
-
+                    // Handle error case
                 }
             }
         }
 
 
-        composable("editTransaction/{transactionId}") { backStackEntry ->
+        composable(GeldScreen.EditTransaction.name + "/{transactionId}") { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = transactions.find { it.id == transactionId }
             if (transaction != null) {
                 EditTransactionScreen(navController, transaction, transactions, cards)
             } else {
-
+                // Handle error case
             }
         }
 
-        composable("editCard/{cardName}") { backStackEntry ->
+        composable(GeldScreen.EditCardScreen.name + "/{cardName}") { backStackEntry ->
             val cardName = backStackEntry.arguments?.getString("cardName") ?: return@composable
             val card = cards.find { it.name == cardName }
             if (card != null) {
@@ -125,14 +114,10 @@ fun AppNavigation() {
                     }
                 })
             } else {
+                // Handle error case
             }
         }
     }
-}
-
-fun getNotificationEnabled(context: Context): Boolean {
-    val sharedPref = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-    return sharedPref.getBoolean("NotificationsEnabled", true)
 }
 
 
