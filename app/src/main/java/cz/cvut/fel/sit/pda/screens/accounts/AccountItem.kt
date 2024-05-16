@@ -21,7 +21,7 @@ fun AccountItem(account: BankCardWithBalance, navController: NavHostController) 
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 10.dp)
-            .clickable { navController.navigate("cardDetails/${account.name}") },
+            .clickable { navController.navigate(route = "cardDetails/${account.name}") },
     ) {
         Row(
             modifier = Modifier

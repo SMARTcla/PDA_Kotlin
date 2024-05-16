@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
 
@@ -62,7 +61,10 @@ fun DropdownMenu(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(
-                modifier = Modifier.background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
+                modifier = Modifier.background(
+                    MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(4.dp)
+                )
             ) {
                 transactionTypes.forEach { type ->
                     DropdownMenuItem(

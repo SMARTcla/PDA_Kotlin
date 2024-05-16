@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.BankEntity
-import cz.cvut.fel.sit.pda.models.BankCard
 
 @Composable
 fun CardDropdownMenu(
@@ -62,7 +61,10 @@ fun CardDropdownMenu(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
-                modifier = Modifier.background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
+                modifier = Modifier.background(
+                    MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(4.dp)
+                )
             ) {
                 bankCards.forEach { card ->
                     DropdownMenuItem(

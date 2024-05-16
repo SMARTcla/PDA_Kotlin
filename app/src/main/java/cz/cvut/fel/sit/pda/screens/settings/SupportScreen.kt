@@ -23,7 +23,8 @@ fun SupportDialog(onDismiss: () -> Unit) {
                 ClickableText(
                     text = AnnotatedString("mailto:krossale@fel.cvut.cz"),
                     onClick = {
-                        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:krossale@fel.cvut.cz"))
+                        val intent =
+                            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:krossale@fel.cvut.cz"))
                         context.startActivity(intent)
                     }
                 )

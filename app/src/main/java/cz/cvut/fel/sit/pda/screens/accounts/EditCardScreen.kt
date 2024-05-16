@@ -9,7 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,8 +28,10 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.BankEntity
-import cz.cvut.fel.sit.pda.models.BankCard
-import cz.cvut.fel.sit.pda.ui.theme.*
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green700
+import cz.cvut.fel.sit.pda.ui.theme.Grey50
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -49,7 +57,9 @@ fun EditCardScreen(
         }
     ) { innerPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             color = DefaultColor
         ) {
             Column(

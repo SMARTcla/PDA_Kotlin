@@ -19,7 +19,7 @@ import cz.cvut.fel.sit.pda.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BasicAppBar (
+fun BasicAppBar(
     title: String,
     navController: NavHostController,
     canNavigateBack: Boolean,
@@ -34,7 +34,7 @@ fun BasicAppBar (
         modifier = Modifier,
         navigationIcon = {
             if (canNavigateBack) {
-                IconButton(onClick = onNavigateBack ) {
+                IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(id = R.string.back_button)

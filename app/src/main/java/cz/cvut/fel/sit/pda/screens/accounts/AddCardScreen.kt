@@ -26,7 +26,6 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.BankEntity
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
@@ -54,9 +53,10 @@ fun AddCardScreen(
         }
     ) { innerPadding ->
         Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding)) {
-            Column(modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize()
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxSize()
             ) {
                 OutlinedTextField(
                     value = cardName,

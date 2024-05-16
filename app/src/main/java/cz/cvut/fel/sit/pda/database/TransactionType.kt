@@ -2,18 +2,18 @@ package cz.cvut.fel.sit.pda.database
 
 enum class TransactionType(val displayName: String, val category: String) {
     // Expences
-    RESTAURANT("Restaurant", "Expenses"),
-    GROCERIES("Groceries", "Expenses"),
-    LEISURE("Leisure", "Expenses"),
-    FAMILY("Family", "Expenses"),
-    TRANSPORT("Transport", "Expenses"),
-    HEALTHCARE("Healthcare", "Expenses"),
-    GIFTS("Gifts", "Expenses"),
-    SHOPPING("Shopping", "Expenses"),
-    OTHER_EXP("Other", "Expenses"),
+    RESTAURANT(displayName = "Restaurant", category = "Expenses"),
+    GROCERIES(displayName = "Groceries", category = "Expenses"),
+    LEISURE(displayName = "Leisure", category =  "Expenses"),
+    FAMILY(displayName = "Family", category =  "Expenses"),
+    TRANSPORT(displayName = "Transport", category =  "Expenses"),
+    HEALTHCARE(displayName = "Healthcare", category =  "Expenses"),
+    GIFTS(displayName = "Gifts", category =  "Expenses"),
+    SHOPPING(displayName = "Shopping", category =  "Expenses"),
+    OTHER_EXP(displayName = "Other", category =  "Expenses"),
     // Income
-    SALARY("Salary", "Income"),
-    BENEFITS("Benefits", "Income"),
-    OTHER_INC("Other", "Income"),
+    SALARY(displayName = "Salary", category =  "Income"),
+    BENEFITS(displayName = "Benefits", category =  "Income"),
+    OTHER_INC(displayName = "Others", category = "Income"),
 
 }

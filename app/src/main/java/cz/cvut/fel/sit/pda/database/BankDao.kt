@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.database;
+package cz.cvut.fel.sit.pda.database
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BankDao {
     @Insert
-    suspend fun insertBank(bank:BankEntity): Long
+    suspend fun insertBank(bank: BankEntity): Long
 
     @Update
     suspend fun updateBank(bank: BankEntity)

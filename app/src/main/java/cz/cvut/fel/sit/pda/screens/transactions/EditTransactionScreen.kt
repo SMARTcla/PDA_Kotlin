@@ -35,7 +35,6 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
@@ -119,7 +118,11 @@ fun EditTransactionScreen(
                         IconButton(onClick = {
                             showDatePicker(context, uiState.date, viewModel::updateDate)
                         }) {
-                            Icon(Icons.Default.DateRange, contentDescription = "Select Date", tint = Color.White)
+                            Icon(
+                                Icons.Default.DateRange,
+                                contentDescription = "Select Date",
+                                tint = Color.White
+                            )
                         }
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(

@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.database;
+package cz.cvut.fel.sit.pda.database
 
 import androidx.room.Dao
 import androidx.room.Insert

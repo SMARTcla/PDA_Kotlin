@@ -26,11 +26,27 @@ import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 @Composable
 fun GeldsBottomBar(navController: NavHostController) {
     val items = listOf(
-        Triple(R.drawable.accounts, stringResource(R.string.accounts_tab_name), GeldScreen.Accounts.name),
-        Triple(R.drawable.overview, stringResource(R.string.overview_tab_name), GeldScreen.Overview.name),
-        Triple(R.drawable.transactions, stringResource(R.string.transactions_tab_name), GeldScreen.Transactions.name),
-        Triple(R.drawable.categories, stringResource(R.string.categories_tab_name), GeldScreen.Categories.name)
+        Triple(
+            R.drawable.accounts,
+            stringResource(R.string.accounts_tab_name),
+            GeldScreen.Accounts.name
+        ),
+        Triple(
+            R.drawable.overview,
+            stringResource(R.string.overview_tab_name),
+            GeldScreen.Overview.name
+        ),
+        Triple(
+            R.drawable.transactions,
+            stringResource(R.string.transactions_tab_name),
+            GeldScreen.Transactions.name
+        ),
+        Triple(
+            R.drawable.categories,
+            stringResource(R.string.categories_tab_name),
+            GeldScreen.Categories.name
         )
+    )
 
     NavigationBar {
         val currentRoute = navController.currentDestination?.route
@@ -38,21 +54,28 @@ fun GeldsBottomBar(navController: NavHostController) {
         items.forEach {
 
             NavigationBarItem(
-                icon = { Icon(painter = painterResource(id = it.first), contentDescription = it.second) },
-                label = { Text(
-                            it.second,
-                            // changed size of Icons name
-                            style = TextStyle(fontSize = 13.sp),
-                    fontWeight = FontWeight.Bold,
+                icon = {
+                    Icon(
+                        painter = painterResource(id = it.first),
+                        contentDescription = it.second
+                    )
+                },
+                label = {
+                    Text(
+                        it.second,
+                        // changed size of Icons name
+                        style = TextStyle(fontSize = 13.sp),
+                        fontWeight = FontWeight.Bold,
                     )
                 },
                 selected = currentRoute == it.third,
                 onClick = {
                     navController.navigate(it.third) {
-                        // Avoid multiple copies of the same destination when reselecting the same item
+                        // Avoid multiple copies of the same destination when reelecting the same item
                         launchSingleTop = true
                         popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true // Save the state of all destinations before popping them
+                            saveState =
+                                true // Save the state of all destinations before popping them
                         }
                         // Restore state when navigating to a previously selected item
                         restoreState = true

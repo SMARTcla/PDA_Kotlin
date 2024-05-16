@@ -11,7 +11,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cz.cvut.fel.sit.pda.database.GeldViewModel
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.screens.accounts.AccountsScreen
 import cz.cvut.fel.sit.pda.screens.accounts.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.accounts.CardDetailScreen
@@ -36,7 +35,8 @@ fun AppNavigation(
 ) {
     val appUiState by geldViewModel.uiState.collectAsStateWithLifecycle()
 
-    NavHost(navController = navController,
+    NavHost(
+        navController = navController,
         startDestination = GeldScreen.Accounts.name,
         modifier = Modifier
     ) {
@@ -96,8 +96,9 @@ fun AppNavigation(
             )
         }
 
-        composable("transactionDetail/{transactionId}") { backStackEntry ->
-            val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
+        composable(route = "transactionDetail/{transactionId}") { backStackEntry ->
+            val transactionId =
+                backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = appUiState.transactions.find { it.id == transactionId }
             val coroutineScope = rememberCoroutineScope()
 
@@ -110,7 +111,7 @@ fun AppNavigation(
             }
         }
 
-        composable("cardDetails/{cardName}") { backStackEntry ->
+        composable(route = "cardDetails/{cardName}") { backStackEntry ->
             val coroutineScope = rememberCoroutineScope()
             backStackEntry.arguments?.getString("cardName")?.let { cardName ->
                 val bank = appUiState.banks.find { it.name == cardName }
@@ -124,7 +125,7 @@ fun AppNavigation(
             }
         }
 
-        composable("editTransaction/{transactionId}") { backStackEntry ->
+        composable(route = "editTransaction/{transactionId}") { backStackEntry ->
             val transactionId =
                 backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = appUiState.transactions.find { it.id == transactionId }
@@ -160,7 +161,7 @@ fun AppNavigation(
 
         }
 
-        composable("editCard/{cardName}") { backStackEntry ->
+        composable(route = "editCard/{cardName}") { backStackEntry ->
             val cardName = backStackEntry.arguments?.getString("cardName")
             val bank = appUiState.banks.find { it.name == cardName }
             val coroutineScope = rememberCoroutineScope()

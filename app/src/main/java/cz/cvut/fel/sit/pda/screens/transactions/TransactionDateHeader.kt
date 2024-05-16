@@ -59,7 +59,8 @@ fun TransactionDateHeader(date: LocalDate, totalAmount: Long) {
         Text(
             text = "$totalAmount CZK",
             style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
                 .padding(horizontal = 16.dp, vertical = 10.dp),
             color = Color.White
         )

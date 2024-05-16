@@ -15,7 +15,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
@@ -78,7 +77,8 @@ fun TransactionDetailScreen(
                 Button(
                     onClick = {
                         navController.navigate(
-                            "${GeldScreen.EditTransaction.name}/${transaction.id}")
+                            "${GeldScreen.EditTransaction.name}/${transaction.id}"
+                        )
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -87,7 +87,8 @@ fun TransactionDetailScreen(
                         containerColor = Green700
                     )
                 ) {
-                    Text("Edit",
+                    Text(
+                        "Edit",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )
@@ -97,13 +98,15 @@ fun TransactionDetailScreen(
                         deleteTransaction()
                         navController.popBackStack()
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("Delete",
+                    Text(
+                        "Delete",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )

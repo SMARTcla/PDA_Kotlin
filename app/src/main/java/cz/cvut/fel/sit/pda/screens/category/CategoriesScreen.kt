@@ -2,11 +2,21 @@ package cz.cvut.fel.sit.pda.screens.category
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,13 +32,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.database.TransactionType
+import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 @Composable
@@ -99,8 +109,13 @@ fun RoundedButton(isExpensesSelected: Boolean, onToggle: () -> Unit) {
 }
 
 @Composable
-fun CategoriesGrid(isExpensesSelected: Boolean, categories: List<TransactionType>, transactionSums: Map<TransactionType, List<Transaction>>) {
-    val filteredCategories = categories.filter { it.category == if (isExpensesSelected) "Expenses" else "Income" }
+fun CategoriesGrid(
+    isExpensesSelected: Boolean,
+    categories: List<TransactionType>,
+    transactionSums: Map<TransactionType, List<Transaction>>
+) {
+    val filteredCategories =
+        categories.filter { it.category == if (isExpensesSelected) "Expenses" else "Income" }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         filteredCategories.chunked(3).forEach { rowCategories ->
             Row(
@@ -134,24 +149,26 @@ fun CategoryIcon(category: TransactionType, sum: Long) {
         TransactionType.BENEFITS -> R.drawable.benefits
         TransactionType.OTHER_INC -> R.drawable.other
 
-//        else -> R.drawable.main
     }
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(10.dp)
     ) {
-        Image(painter = iconPainter,
+        Image(
+            painter = iconPainter,
             contentDescription = category.displayName,
             modifier = Modifier.size(66.dp)
         )
 
-        Text(text = category.displayName,
+        Text(
+            text = category.displayName,
             modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
             style = TextStyle(color = Indigo50, fontSize = 14.sp, fontWeight = FontWeight.Bold)
         )
 
-        Text(text = "$sum CZK",
+        Text(
+            text = "$sum CZK",
             style = TextStyle(color = Indigo50, fontSize = 12.sp)
         )
     }

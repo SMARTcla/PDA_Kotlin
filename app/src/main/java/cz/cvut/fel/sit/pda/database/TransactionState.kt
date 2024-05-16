@@ -1,6 +1,5 @@
 package cz.cvut.fel.sit.pda.database
 
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 
 data class TransactionState(

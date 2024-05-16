@@ -1,22 +1,32 @@
 package cz.cvut.fel.sit.pda.screens.settings
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.compose.material3.*
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
 import androidx.navigation.compose.rememberNavController
-import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 import kotlinx.coroutines.launch
 
@@ -54,12 +64,13 @@ fun SettingsScreen(navController: NavHostController) {
                 )
             }
         ) { paddingValues ->
-            SettingsContent(navController, paddingValues,
+            SettingsContent(
+                navController, paddingValues,
                 onNotificationsClick = { showNotificationsDialog = true },
                 onVersionClick = { showVersionDialog = true },
                 onAboutClick = { showAboutDialog = true },
                 onSupportClick = { showSupportDialog = true },
-                )
+            )
             if (showVersionDialog) {
                 VersionScreen(onDismiss = { showVersionDialog = false })
             }
@@ -94,12 +105,14 @@ fun SettingsDrawerContent(navController: NavHostController, onDestinationClicked
 }
 
 @Composable
-fun SettingsContent(navController: NavHostController,
-                    paddingValues: PaddingValues,
-                    onNotificationsClick: () -> Unit,
-                    onVersionClick: () -> Unit,
-                    onAboutClick: () -> Unit,
-                    onSupportClick: () -> Unit) {
+fun SettingsContent(
+    navController: NavHostController,
+    paddingValues: PaddingValues,
+    onNotificationsClick: () -> Unit,
+    onVersionClick: () -> Unit,
+    onAboutClick: () -> Unit,
+    onSupportClick: () -> Unit
+) {
     Column(modifier = Modifier.padding(paddingValues)) {
         OptionItem("Notifications", onClick = onNotificationsClick)
         OptionItem("Version", onClick = onVersionClick)

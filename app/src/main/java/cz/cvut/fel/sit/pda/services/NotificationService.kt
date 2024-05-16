@@ -2,13 +2,13 @@ package cz.cvut.fel.sit.pda.services
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import cz.cvut.fel.sit.pda.R
 
@@ -45,7 +45,8 @@ class NotificationService : Service() {
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(context, NotificationService.CHANNEL_ID)
             .setSmallIcon(R.drawable.notification)
             .setContentTitle("Reminder")

@@ -1,6 +1,6 @@
 package cz.cvut.fel.sit.pda
 
-enum class GeldScreen() {
+enum class GeldScreen {
     Accounts,
     Overview,
     Transactions,
@@ -18,7 +18,6 @@ enum class GeldScreen() {
     Notifications,
     Version,
     Support
-
 
 
     // Add new values in future
