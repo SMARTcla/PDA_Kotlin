@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.ui.theme.Indigo50
-import cz.cvut.fel.sit.pda.ui.theme.black
 
 @Composable
 fun DropdownMenu(
@@ -38,48 +38,45 @@ fun DropdownMenu(
         Box(
             modifier = Modifier
                 .clickable { expanded = true }
-                .background(Color.White, shape = RoundedCornerShape(4.dp))
+                .background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .fillMaxWidth()
         ) {
             if (showHint) {
                 Text(
                     text = "Select Category",
-                    color = black
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-            }
-            else {
+            } else {
                 Text(
                     text = selectedType.displayName,
-                    color = Color.Black
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
 
-        androidx.compose.material.DropdownMenu(
+        DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.fillMaxWidth(),
-            content = {
-                Column(
-                    modifier = Modifier.background(
-                        Indigo50,
-                        shape = RoundedCornerShape(4.dp)
-                    )
-                ) {
-                    transactionTypes.forEach { type ->
-                        DropdownMenuItem(
-                            onClick = {
-                                onTypeSelected(type)
-                                expanded = false
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(type.displayName, color = Color.Black)
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
+            ) {
+                transactionTypes.forEach { type ->
+                    DropdownMenuItem(
+                        onClick = {
+                            onTypeSelected(type)
+                            showHint = false
+                            expanded = false
+                        },
+                        text = {
+                            Text(type.displayName, color = MaterialTheme.colorScheme.onSurface)
                         }
-                    }
+                    )
                 }
             }
-        )
+        }
     }
 }

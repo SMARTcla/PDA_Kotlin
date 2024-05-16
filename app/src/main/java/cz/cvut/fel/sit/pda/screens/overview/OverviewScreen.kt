@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,11 +19,7 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.ui.theme.BlueGrey800
-import cz.cvut.fel.sit.pda.ui.theme.BlueGrey850
-import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
-import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.*
 
 @Composable
 fun OverviewScreen(navController: NavHostController, transactions: List<Transaction>) {
@@ -88,8 +82,8 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (!isExpensesSelected) DeepPurple500 else Indigo50,
-                            contentColor = if (!isExpensesSelected) Indigo50 else Color.Black
+                            containerColor = if (!isExpensesSelected) DeepPurple500 else BlueGrey850,
+                            contentColor = if (!isExpensesSelected) Indigo50 else Indigo100
                         )
                     ) {
                         Text("Incomes",
@@ -123,7 +117,7 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .height(70.dp)
-            .background(BlueGrey850, RoundedCornerShape(8.dp))
+            .background(Grey200, RoundedCornerShape(8.dp))
             .padding(16.dp)
     ) {
         Row(
@@ -133,12 +127,12 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
         ) {
             Text(
                 text = transactionType.displayName,
-                color = Indigo50,
+                color = black,
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(
                 text = "$totalAmount",
-                color = Indigo50,
+                color = black,
                 style = MaterialTheme.typography.headlineSmall
             )
         }

@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.GeldViewModel
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
@@ -99,7 +100,6 @@ fun AppNavigation(
         composable("transactionDetail/{transactionId}") { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = appUiState.transactions.find { it.id == transactionId }
-
             val coroutineScope = rememberCoroutineScope()
 
             if (transaction != null) {
@@ -153,15 +153,13 @@ fun AppNavigation(
                         }
                     }
                 )
-            } else {
-
-            }
         }
 
         composable("editCard/{cardName}") { backStackEntry ->
             val cardName = backStackEntry.arguments?.getString("cardName") ?: return@composable
             val card = appUiState.cards.find { it.name == cardName }
             if (card != null) {
+                val coroutineScope = rememberCoroutineScope()
                 EditCardScreen(navController, card, onUpdate = { updatedCard ->
                     val index = appUiState.cards.indexOfFirst { it.name == card.name }
                     /*if (index != -1) {
@@ -173,9 +171,9 @@ fun AppNavigation(
     }
 }
 
-fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
-    val index = this.indexOfFirst { it.id == updatedTransaction.id }
-    if (index != -1) {
-        this[index] = updatedTransaction
-    }
+//fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
+//    val index = this.indexOfFirst { it.id == updatedTransaction.id }
+//    if (index != -1) {
+//        this[index] = updatedTransaction
+//    }
 }
