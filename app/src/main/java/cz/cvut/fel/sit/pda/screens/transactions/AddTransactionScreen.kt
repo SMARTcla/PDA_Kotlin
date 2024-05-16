@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.BankCard
@@ -42,7 +43,7 @@ import java.util.*
 fun AddTransactionScreen(
     navController: NavHostController,
     viewModel: TransactionViewModel,
-    cards: List<BankCard>,
+    cards: List<BankEntity>,
     saveTransaction: (TransactionEntity) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

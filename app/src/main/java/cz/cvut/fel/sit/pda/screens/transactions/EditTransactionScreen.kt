@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.BankCard
@@ -46,7 +47,7 @@ import java.time.format.DateTimeFormatter
 fun EditTransactionScreen(
     navController: NavHostController,
     viewModel: TransactionViewModel,
-    banks: List<BankCard>,
+    banks: List<BankEntity>,
     updateTransaction: (TransactionEntity) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

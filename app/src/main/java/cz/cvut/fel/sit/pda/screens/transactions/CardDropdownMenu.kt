@@ -19,10 +19,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.models.BankCard
 
 @Composable
-fun CardDropdownMenu(selectedCard: String, onCardSelected: (String) -> Unit, bankCards: List<BankCard>) {
+fun CardDropdownMenu(
+    selectedCard: String,
+    onCardSelected: (String) -> Unit,
+    bankCards: List<BankEntity>
+) {
     var expanded by remember { mutableStateOf(false) }
     var showHint by remember { mutableStateOf(true) }
 
