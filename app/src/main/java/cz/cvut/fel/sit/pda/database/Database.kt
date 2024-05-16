@@ -24,7 +24,6 @@ abstract class GeldDatabase : RoomDatabase() {
                     GeldDatabase::class.java,
                     "pda"
                 )
-//                    .createFromAsset("database/geld.db")
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { instance = it }
