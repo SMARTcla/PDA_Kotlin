@@ -1,7 +1,6 @@
 package cz.cvut.fel.sit.pda
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -11,15 +10,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.GeldViewModel
 import cz.cvut.fel.sit.pda.models.BankCard
-import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.screens.accounts.AccountsScreen
 import cz.cvut.fel.sit.pda.screens.accounts.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.accounts.CardDetailScreen
 import cz.cvut.fel.sit.pda.screens.accounts.EditCardScreen
-import cz.cvut.fel.sit.pda.screens.accounts.deleteCard
 import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
@@ -49,7 +45,7 @@ fun AppNavigation(
             AccountsScreen(
                 navController,
                 appUiState.transactions,
-                appUiState.cards
+                appUiState.banks
             )
         }
 
@@ -58,7 +54,7 @@ fun AppNavigation(
 
             AddCardScreen(
                 navController = navController,
-                cards = appUiState.cards,
+                cards = appUiState.banks,
                 saveBank = { bank ->
                     coroutineScope.launch {
                         geldViewModel.saveBank(bank)
@@ -68,17 +64,20 @@ fun AppNavigation(
         }
 
         composable(GeldScreen.Overview.name) {
-            OverviewScreen(navController, appUiState.transactions) }
+            OverviewScreen(navController, appUiState.transactions)
+        }
 
         composable(GeldScreen.Transactions.name) {
             TransactionsScreen(navController, appUiState.transactions)
         }
 
         composable(GeldScreen.Categories.name) {
-            CategoriesScreen(navController, appUiState.transactions) }
+            CategoriesScreen(navController, appUiState.transactions)
+        }
 
         composable(GeldScreen.Settings.name) {
-            SettingsScreen(navController) }
+            SettingsScreen(navController)
+        }
 
         composable(GeldScreen.AddTransaction.name) {
             val viewModel = viewModel<TransactionViewModel>()
@@ -93,7 +92,7 @@ fun AppNavigation(
                     }
                     navController.popBackStack()
                 },
-                cards = appUiState.banks.map { BankCard(it.name) }
+                cards = appUiState.banks
             )
         }
 
@@ -112,18 +111,22 @@ fun AppNavigation(
         }
 
         composable("cardDetails/{cardName}") { backStackEntry ->
+            val coroutineScope = rememberCoroutineScope()
             backStackEntry.arguments?.getString("cardName")?.let { cardName ->
-                val card = appUiState.cards.find { it.name == cardName }
-                if (card != null) {
-                    CardDetailScreen(navController, card) { cardToDelete ->
-                        deleteCard(cardToDelete, appUiState.cards.toMutableList())
+                val bank = appUiState.banks.find { it.name == cardName }
+                if (bank != null) {
+                    CardDetailScreen(navController, bank) { bankToDelete ->
+                        coroutineScope.launch {
+                            geldViewModel.deleteBank(bankToDelete)
+                        }
                     }
                 }
             }
         }
 
         composable("editTransaction/{transactionId}") { backStackEntry ->
-            val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
+            val transactionId =
+                backStackEntry.arguments?.getString("transactionId") ?: return@composable
             val transaction = appUiState.transactions.find { it.id == transactionId }
             val coroutineScope = rememberCoroutineScope()
 
@@ -146,34 +149,29 @@ fun AppNavigation(
                 EditTransactionScreen(
                     navController = navController,
                     viewModel = viewModel,
-                    banks = appUiState.cards,
+                    banks = appUiState.banks,
                     updateTransaction = {
                         coroutineScope.launch {
                             geldViewModel.updateTransaction(it)
                         }
                     }
                 )
+            }
+
         }
 
         composable("editCard/{cardName}") { backStackEntry ->
-            val cardName = backStackEntry.arguments?.getString("cardName") ?: return@composable
-            val card = appUiState.cards.find { it.name == cardName }
-            if (card != null) {
-                val coroutineScope = rememberCoroutineScope()
-                EditCardScreen(navController, card, onUpdate = { updatedCard ->
-                    val index = appUiState.cards.indexOfFirst { it.name == card.name }
-                    /*if (index != -1) {
-                        appUiState.cards.get(index) = updatedCard
-                    }*/
+            val cardName = backStackEntry.arguments?.getString("cardName")
+            val bank = appUiState.banks.find { it.name == cardName }
+            val coroutineScope = rememberCoroutineScope()
+
+            if (bank != null) {
+                EditCardScreen(navController, bank, onUpdate = { updatedBank ->
+                    coroutineScope.launch {
+                        geldViewModel.updateBank(updatedBank)
+                    }
                 })
             }
         }
     }
-}
-
-//fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
-//    val index = this.indexOfFirst { it.id == updatedTransaction.id }
-//    if (index != -1) {
-//        this[index] = updatedTransaction
-//    }
 }
