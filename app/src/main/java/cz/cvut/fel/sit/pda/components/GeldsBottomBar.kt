@@ -21,7 +21,6 @@ import androidx.navigation.compose.rememberNavController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
-import cz.cvut.fel.sit.pda.ui.theme.Green
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
 @Composable
@@ -43,7 +42,7 @@ fun GeldsBottomBar(navController: NavHostController) {
                 label = { Text(
                             it.second,
                             // changed size of Icons name
-                            style = TextStyle(fontSize = 11.sp),
+                            style = TextStyle(fontSize = 13.sp),
                     fontWeight = FontWeight.Bold,
                     )
                 },
