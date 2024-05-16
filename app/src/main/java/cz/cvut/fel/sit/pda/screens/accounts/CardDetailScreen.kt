@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
@@ -70,9 +69,7 @@ fun CardDetailScreen(
                 }
                 Spacer(Modifier.height(16.dp))
                 Button(
-                    onClick = {
-                        navController.navigate("${GeldScreen.EditCardScreen.name}/${card.name}")
-                    },
+                    onClick = { navController.navigate("editCard/${card.name}") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
