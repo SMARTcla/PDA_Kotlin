@@ -25,17 +25,15 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
+fun CategoriesScreen(navController: NavHostController, transactions: List<Transaction>) {
     var isExpensesSelected by remember { mutableStateOf(true) }
-    // Filter and group transactions by type
     val filteredTransactions = transactions.filter {
         it.type.category == if (isExpensesSelected) "Expenses" else "Income"
     }
@@ -64,14 +62,12 @@ fun CategoriesScreen(navController: NavHostController, transactions: MutableList
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-                // Use the custom RoundedButton here
                 RoundedButton(
                     isExpensesSelected = isExpensesSelected,
                     onToggle = { isExpensesSelected = !isExpensesSelected }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Display categories around the button
                 CategoriesGrid(isExpensesSelected, TransactionType.entries, groupedTransactions)
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -84,19 +80,19 @@ fun CategoriesScreen(navController: NavHostController, transactions: MutableList
 fun RoundedButton(isExpensesSelected: Boolean, onToggle: () -> Unit) {
     Button(
         onClick = { onToggle() },
-        modifier = Modifier.size(160.dp), // Задаем размер кнопки, чтобы она была круглой
-        shape = CircleShape, // Задаем форму круга
+        modifier = Modifier.size(160.dp),
+        shape = CircleShape,
         colors = ButtonDefaults.buttonColors(
-            containerColor = DeepPurple500, // Фон кнопки
-            contentColor = Color.White // Цвет текста
+            containerColor = DeepPurple500,
+            contentColor = Color.White
         )
     ) {
         Text(
             text = if (isExpensesSelected) "Go to Income" else "Go to Expenses",
             style = TextStyle(
-                color = Color.White, // Цвет текста
-                fontSize = 16.sp, // Размер шрифта
-                fontWeight = FontWeight.Bold // Жирность шрифта
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
             )
         )
     }
@@ -110,11 +106,11 @@ fun CategoriesGrid(isExpensesSelected: Boolean, categories: List<TransactionType
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp), // Добавляет отступы слева и справа
-                horizontalArrangement = Arrangement.SpaceBetween // Элементы будут равномерно распределены по горизонтали
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 rowCategories.forEach { category ->
-                    CategoryIcon(category, transactionSums[category]?.sumOf { it.amount } ?: 0.0)
+                    CategoryIcon(category, transactionSums[category]?.sumOf { it.amount } ?: 0L)
                 }
             }
         }
@@ -123,7 +119,7 @@ fun CategoriesGrid(isExpensesSelected: Boolean, categories: List<TransactionType
 
 
 @Composable
-fun CategoryIcon(category: TransactionType, sum: Double) {
+fun CategoryIcon(category: TransactionType, sum: Long) {
     val imageRes = when (category) {
         TransactionType.RESTAURANT -> R.drawable.restaurant
         TransactionType.GROCERIES -> R.drawable.groceries
@@ -138,18 +134,17 @@ fun CategoryIcon(category: TransactionType, sum: Double) {
         TransactionType.BENEFITS -> R.drawable.benefits
         TransactionType.OTHER_INC -> R.drawable.other
 
-        else -> R.drawable.main // Use a default icon
+//        else -> R.drawable.main
     }
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(20.dp)
-    // padding around each icon for better visual separation
     ) {
         Image(painter = iconPainter,
             contentDescription = category.displayName,
             modifier = Modifier.size(70.dp)
-        ) // Icon size
+        )
 
         Text(text = category.displayName,
             modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
