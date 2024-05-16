@@ -2,7 +2,6 @@ package cz.cvut.fel.sit.pda.database
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,8 +24,7 @@ class GeldViewModel(
     ) { transactions, banks ->
         TransactionState(
             transactions = transactions,
-            banks = banks,
-            cards = banks.map { BankCard(it.name) }
+            banks = banks
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), TransactionState())
 

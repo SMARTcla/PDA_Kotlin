@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BankDao {
     @Insert
-    suspend fun insertBank(bank: BankEntity): Long
+    suspend fun insertBank(bank:BankEntity): Long
 
     @Update
     suspend fun updateBank(bank: BankEntity)
