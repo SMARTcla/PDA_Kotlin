@@ -139,11 +139,11 @@ fun CategoryIcon(category: TransactionType, sum: Long) {
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         Image(painter = iconPainter,
             contentDescription = category.displayName,
-            modifier = Modifier.size(70.dp)
+            modifier = Modifier.size(66.dp)
         )
 
         Text(text = category.displayName,

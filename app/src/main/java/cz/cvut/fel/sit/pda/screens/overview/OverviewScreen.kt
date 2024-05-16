@@ -1,19 +1,12 @@
 package cz.cvut.fel.sit.pda.screens.overview
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,10 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.database.TransactionType
+import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.ui.theme.BlueGrey800
+import cz.cvut.fel.sit.pda.ui.theme.BlueGrey850
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 @Composable
 fun OverviewScreen(navController: NavHostController, transactions: List<Transaction>) {
@@ -59,15 +55,17 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
         }
     ) { innerPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             color = DefaultColor
         ) {
-            Column(modifier = Modifier.padding(innerPadding)) {
+            Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
                 ) {
                     Button(
                         onClick = { isExpensesSelected = true },
@@ -75,11 +73,13 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Color.White,
-                            contentColor = if (isExpensesSelected) Color.White else Color.Black
+                            containerColor = if (isExpensesSelected) DeepPurple500 else Indigo50,
+                            contentColor = if (isExpensesSelected) Indigo50 else Color.Black
                         )
                     ) {
-                        Text("Expenses")
+                        Text("Expenses",
+                            style = MaterialTheme.typography.headlineSmall)
+
                     }
                     Spacer(Modifier.width(8.dp))
                     Button(
@@ -88,11 +88,13 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (!isExpensesSelected) DeepPurple500 else Color.White,
-                            contentColor = if (!isExpensesSelected) Color.White else Color.Black
+                            containerColor = if (!isExpensesSelected) DeepPurple500 else Indigo50,
+                            contentColor = if (!isExpensesSelected) Indigo50 else Color.Black
                         )
                     ) {
-                        Text("Income")
+                        Text("Incomes",
+                            style = MaterialTheme.typography.headlineSmall)
+
                     }
                 }
 
@@ -114,8 +116,6 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
     }
 }
 
-
-
 @Composable
 fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
     Box(
@@ -123,7 +123,7 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .height(70.dp)
-            .background(Color(0xFF334455), RoundedCornerShape(8.dp))
+            .background(BlueGrey850, RoundedCornerShape(8.dp))
             .padding(16.dp)
     ) {
         Row(
@@ -133,13 +133,13 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
         ) {
             Text(
                 text = transactionType.displayName,
-                color = Color.White,
-                style = MaterialTheme.typography.h5
+                color = Indigo50,
+                style = MaterialTheme.typography.headlineSmall
             )
             Text(
                 text = "$totalAmount",
-                color = Color.White,
-                style = MaterialTheme.typography.h5
+                color = Indigo50,
+                style = MaterialTheme.typography.headlineSmall
             )
         }
     }

@@ -309,6 +309,7 @@ val Grey700 = Color( 0xff616161)
 val Grey800 = Color( 0xff424242)
 val Grey900 = Color( 0xff212121)
 
+
 /* Blue Grey */
 val BlueGrey = Color( 0xff607d8b)
 val BlueGrey50 = Color( 0xffeceff1)
@@ -320,6 +321,7 @@ val BlueGrey500 = Color( 0xff607d8b)
 val BlueGrey600 = Color( 0xff546e7a)
 val BlueGrey700 = Color( 0xff455a64)
 val BlueGrey800 = Color( 0xff37474f)
+val BlueGrey850 = Color(0xFF334455)
 val BlueGrey900 = Color( 0xff263238)
 
 /* White / Black */
