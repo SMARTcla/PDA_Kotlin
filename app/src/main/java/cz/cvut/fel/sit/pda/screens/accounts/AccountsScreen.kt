@@ -84,7 +84,9 @@ fun AccountsScreen(
     )
     { innerPadding ->
 
-        Surface(color = DefaultColor, modifier = Modifier.padding(innerPadding)) {
+        Surface(
+            color = DefaultColor,
+            modifier = Modifier.padding(innerPadding)) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(accountsWithBalances.value) { account ->
                     AccountItem(account, navController)
@@ -101,14 +103,13 @@ fun AccountItem(account: BankCardWithBalance, navController: NavHostController) 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(horizontal = 16.dp, vertical = 10.dp)
             .clickable { navController.navigate("cardDetails/${account.name}") },
-//        elevation =
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = account.name, style = MaterialTheme.typography.headlineSmall)

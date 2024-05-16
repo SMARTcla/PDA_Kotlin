@@ -1,14 +1,8 @@
 package cz.cvut.fel.sit.pda.screens.accounts
 
-
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -19,7 +13,9 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
-
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green700
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -45,12 +41,12 @@ fun CardDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            color = MaterialTheme.colors.surface
+            color = DefaultColor
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
+                    .padding(horizontal = 16.dp, vertical = 10.dp)
             ) {
                 val typography = MaterialTheme.typography
                 // Display card information
@@ -58,12 +54,12 @@ fun CardDetailScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp),
-                    elevation = 2.dp
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
                             text = "Card Name: ${card.name}",
-                            style = typography.h6
+                            style = typography.titleMedium
                         )
                     }
                 }
@@ -72,23 +68,33 @@ fun CardDetailScreen(
                     onClick = { navController.navigate("editCard/${card.name}") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                        .padding(vertical = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Green700
+                    )
                 ) {
-                    Text("Edit", color = Color.White)
+                    Text("Edit",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Indigo50
+                    )
                 }
                 Button(
                     onClick = {
                         onDelete(card)
                         navController.popBackStack()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
                 ) {
-                    Text("Delete", color = Color.White)
+                    Text("Delete",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Indigo50
+                    )
                 }
             }
         }
     }
 }
-

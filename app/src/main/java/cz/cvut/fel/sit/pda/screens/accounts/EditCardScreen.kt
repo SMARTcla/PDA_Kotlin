@@ -2,7 +2,9 @@ package cz.cvut.fel.sit.pda.screens.accounts
 
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +26,11 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Green700
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.monk03
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -51,7 +57,7 @@ fun EditCardScreen(
     ) { innerPadding ->
         Surface(
             modifier = Modifier.fillMaxSize().padding(innerPadding),
-            color = MaterialTheme.colors.surface
+            color = DefaultColor
         ) {
             Column(
                 modifier = Modifier
@@ -65,12 +71,12 @@ fun EditCardScreen(
                     onValueChange = { cardName = it },
                     label = { Text("Card Name") },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.Black,
-                        cursorColor = Color.Black,
-                        focusedBorderColor = Color.Gray,
-                        unfocusedBorderColor = Color.LightGray,
-                        focusedLabelColor = Color.Gray,
-                        unfocusedLabelColor = Color.Gray
+                        textColor = Indigo50,
+                        cursorColor = Indigo50,
+                        focusedBorderColor = Indigo50,
+                        unfocusedBorderColor = Indigo50,
+                        focusedLabelColor = Indigo50,
+                        unfocusedLabelColor = Indigo50
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -82,7 +88,9 @@ fun EditCardScreen(
                         navController.popBackStack()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Green700
+                    )
                 ) {
                     Text("Save Changes", color = Grey50)
                 }
