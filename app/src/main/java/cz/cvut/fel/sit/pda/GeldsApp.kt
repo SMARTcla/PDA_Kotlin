@@ -36,10 +36,8 @@ import kotlinx.coroutines.launch
 fun AppNavigation(
     navController: NavHostController,
     geldViewModel: GeldViewModel,
-//    onEvent: (GeldEvent) -> Boolean
 ) {
     val appUiState by geldViewModel.uiState.collectAsStateWithLifecycle()
-//    val notificationEnabled = remember { mutableStateOf(getNotificationEnabled(context)) }
 
     NavHost(navController = navController,
         startDestination = GeldScreen.Accounts.name,
@@ -81,16 +79,6 @@ fun AppNavigation(
         composable(GeldScreen.Settings.name) {
             SettingsScreen(navController) }
 
-//        composable(GeldScreen.Notifications.name) {
-//            NotificationsScreen(navController, notificationEnabled.value) { enabled ->
-//                notificationEnabled.value = enabled
-//                val editor = context.getSharedPreferences("AppSettings",
-//                    Context.MODE_PRIVATE).edit()
-//                editor.putBoolean("NotificationsEnabled", enabled)
-//                editor.apply()
-//            }
-//        }
-
         composable(GeldScreen.AddTransaction.name) {
             val viewModel = viewModel<TransactionViewModel>()
             val coroutineScope = rememberCoroutineScope()
@@ -120,10 +108,9 @@ fun AppNavigation(
                         geldViewModel.deleteTransaction(transaction)
                     }
                 }
-            } else {
-
             }
         }
+
         composable("cardDetails/{cardName}") { backStackEntry ->
             backStackEntry.arguments?.getString("cardName")?.let { cardName ->
                 val card = appUiState.cards.find { it.name == cardName }
@@ -131,12 +118,9 @@ fun AppNavigation(
                     CardDetailScreen(navController, card) { cardToDelete ->
                         deleteCard(cardToDelete, appUiState.cards.toMutableList())
                     }
-                } else {
-
                 }
             }
         }
-
 
         composable("editTransaction/{transactionId}") { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId") ?: return@composable
@@ -174,22 +158,20 @@ fun AppNavigation(
             }
         }
 
-//        composable("editCard/{cardName}") { backStackEntry ->
-//            val cardName = backStackEntry.arguments?.getString("cardName") ?: return@composable
-//            val card = appUiState.cards.find { it.name == cardName }
-//            if (card != null) {
-//                EditCardScreen(navController, card, onUpdate = { updatedCard ->
-//                    val index = appUiState.cards.indexOfFirst { it.name == card.name }
-//                    /*if (index != -1) {
-//                        appUiState.cards.get(index) = updatedCard
-//                    }*/
-//                })
-//            } else {
-//            }
-//        }
+        composable("editCard/{cardName}") { backStackEntry ->
+            val cardName = backStackEntry.arguments?.getString("cardName") ?: return@composable
+            val card = appUiState.cards.find { it.name == cardName }
+            if (card != null) {
+                EditCardScreen(navController, card, onUpdate = { updatedCard ->
+                    val index = appUiState.cards.indexOfFirst { it.name == card.name }
+                    /*if (index != -1) {
+                        appUiState.cards.get(index) = updatedCard
+                    }*/
+                })
+            }
+        }
     }
 }
-
 
 fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) {
     val index = this.indexOfFirst { it.id == updatedTransaction.id }
@@ -197,4 +179,3 @@ fun MutableList<Transaction>.updateTransaction(updatedTransaction: Transaction) 
         this[index] = updatedTransaction
     }
 }
-

@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var navHostController: NavHostController
 
-
     val db by lazy { GeldDatabase.getInstance(this) }
 
     private val viewModel: GeldViewModel by viewModels {
@@ -41,18 +40,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             PDATheme {
                 viewModel.fetchDataOnStart()
-
                 navHostController = rememberNavController()
-
                 AppNavigation(
                     navController = navHostController,
                     geldViewModel = viewModel
-//                    onEvent = viewModel::onEvent
                 )
             }
 
             createNotificationChannel()
-//            viewModel.initializeData()
         }
     }
 
