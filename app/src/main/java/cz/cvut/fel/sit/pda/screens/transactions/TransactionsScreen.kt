@@ -1,8 +1,6 @@
 package cz.cvut.fel.sit.pda.screens.transactions
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +13,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -33,17 +44,16 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.models.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TransactionsScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
+fun TransactionsScreen(navController: NavHostController, transactions: List<Transaction>) {
     val groupedTransactions = transactions
         .filter { it.type != TransactionType.SALARY }
         .filter { it.type != TransactionType.BENEFITS }
@@ -99,23 +109,136 @@ fun TransactionsScreen(navController: NavHostController, transactions: MutableLi
     }
 }
 
-fun Transaction.toInfoList(): List<String> {
+@Composable
+fun TransactionDateHeader(date: LocalDate, totalAmount: Long) {
+    val dayOfMonthFormatter = DateTimeFormatter.ofPattern("dd")
+    val monthYearFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
+    val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(Color(0xFF69789A)),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = date.format(dayOfMonthFormatter),
+                style = MaterialTheme.typography.h4,
+                color = Color.White
+            )
+            Column(
+                modifier = Modifier.padding(start = 4.dp)
+            ) {
+                Text(
+                    text = date.format(dayOfWeekFormatter),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.White
+                )
+                Text(
+                    text = date.format(monthYearFormatter),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.White
+                )
+            }
+        }
+        Text(
+            text = "$totalAmount CZK",
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.align(Alignment.CenterVertically),
+            color = Color.White
+        )
+    }
+}
+
+
+
+@Composable
+fun TransactionDetailScreen(
+    navController: NavHostController,
+    transaction: Transaction,
+    deleteTransaction: () -> Unit
+) {
+    Scaffold(
+        topBar = {
+            BasicAppBar(
+                title = "Transaction Details",
+                navController = navController,
+                canNavigateBack = true,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        },
+        bottomBar = {
+            GeldsBottomBar(navController)
+        }
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            color = MaterialTheme.colors.surface
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
+                val typography = MaterialTheme.typography
+                transaction.toInfoList().forEach { info ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        elevation = 2.dp
+                    ) {
+                        Text(
+                            text = info,
+                            style = typography.h6,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                }
+                Spacer(Modifier.height(16.dp))
+                Button(
+                    onClick = {
+                        navController.navigate("editTransaction/${transaction.id}")
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                ) {
+                    Text("Edit", color = Color.White)
+                }
+                Button(
+                    onClick = {
+                        deleteTransaction()
+                        navController.popBackStack()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                ) {
+                    Text("Delete", color = Color.White)
+                }
+            }
+        }
+    }
+}
+
+private fun Transaction.toInfoList(): List<String> {
     return listOf(
         "Name: $name",
         "Amount: $amount",
         "Type: ${type.displayName}",
         "Date: $date",
-        "Category: $category",
         "Card Used: $cardName"
     )
 }
 
-fun deleteTransaction(transaction: Transaction, transactions: MutableList<Transaction>) {
-    transactions.remove(transaction)
-}
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DatePicker(context: Context, currentDate: LocalDate, onDateSelected: (LocalDate) -> Unit) {
     val dateString = remember { mutableStateOf(currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))) }

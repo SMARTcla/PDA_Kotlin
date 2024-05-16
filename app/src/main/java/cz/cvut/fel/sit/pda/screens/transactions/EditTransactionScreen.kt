@@ -1,8 +1,6 @@
 package cz.cvut.fel.sit.pda.screens.transactions
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,35 +22,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.TransactionEntity
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.BankCard
-import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.updateTransaction
 import java.time.format.DateTimeFormatter
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun EditTransactionScreen(navController: NavHostController, transaction: Transaction, transactions: MutableList<Transaction>, cards: MutableList<BankCard>) {
-    var name by remember { mutableStateOf(transaction.name) }
-    var amount by remember { mutableStateOf(transaction.amount.toString()) }
-    var selectedType by remember { mutableStateOf(transaction.type) }
-    var selectedDate by remember { mutableStateOf(transaction.date) }
-    var selectedCard by remember { mutableStateOf(cards.first().name) }
-    var isExpensesSelected by remember { mutableStateOf(true) }
+fun EditTransactionScreen(
+    navController: NavHostController,
+    viewModel: TransactionViewModel,
+    banks: List<BankCard>,
+    updateTransaction: (TransactionEntity) -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val isExpensesSelected by remember { mutableStateOf(true) }
     val context = LocalContext.current
+
     Scaffold(
         topBar = {
             BasicAppBar(
@@ -67,7 +67,9 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
         }
     ) { innerPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             color = DefaultColor
         ) {
             Column(
@@ -78,8 +80,8 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
+                    value = uiState.name,
+                    onValueChange = viewModel::updateName,
                     label = { Text("Name", color = Color.White) },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = Color.White,
@@ -92,8 +94,8 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = amount,
-                    onValueChange = { amount = it },
+                    value = uiState.amount,
+                    onValueChange = viewModel::updateAmount,
                     label = { Text("Amount", color = Color.White) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -107,15 +109,13 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = selectedDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                    value = uiState.date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                     onValueChange = {},
                     label = { Text("Date", color = Color.White) },
                     readOnly = true,
                     trailingIcon = {
                         IconButton(onClick = {
-                            showDatePicker(context, selectedDate) { date ->
-                                selectedDate = date
-                            }
+                            showDatePicker(context, uiState.date, viewModel::updateDate)
                         }) {
                             Icon(Icons.Default.DateRange, contentDescription = "Select Date", tint = Color.White)
                         }
@@ -132,29 +132,22 @@ fun EditTransactionScreen(navController: NavHostController, transaction: Transac
                     modifier = Modifier.fillMaxWidth()
                 )
                 DropdownMenu(
-                    selectedType = selectedType,
-                    onTypeSelected = { selectedType = it },
+                    selectedType = uiState.type,
+                    onTypeSelected = viewModel::updateType,
                     transactionTypes = if (isExpensesSelected) {
-                        TransactionType.values().toList().filter { it.category == "Expenses" }
+                        TransactionType.entries.filter { it.category == "Expenses" }
                     } else {
-                        TransactionType.values().toList().filter { it.category == "Income" }
+                        TransactionType.entries.filter { it.category == "Income" }
                     }
                 )
                 CardDropdownMenu(
-                    selectedCard = selectedCard,
-                    onCardSelected = { selectedCard = it },
-                    bankCards = cards
+                    selectedCard = uiState.cardName,
+                    onCardSelected = viewModel::updateCardName,
+                    bankCards = banks
                 )
                 Button(
                     onClick = {
-                        val updatedTransaction = transaction.copy(
-                            name = name,
-                            amount = amount.toDouble(),
-                            type = selectedType,
-                            date = selectedDate,
-                            cardName = selectedCard
-                        )
-                        transactions.updateTransaction(updatedTransaction)
+                        updateTransaction(viewModel.getTransaction())
                         navController.popBackStack()
                     },
                     modifier = Modifier.fillMaxWidth(),

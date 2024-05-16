@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.models.Transaction
 
 @Composable
@@ -17,7 +16,8 @@ fun TransactionItem(transaction: Transaction, navController: NavHostController) 
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                navController.navigate("${GeldScreen.TransactionDetails.name}/${transaction.id}")            },
+                navController.navigate("transactionDetail/${transaction.id}")
+            },
         elevation = 4.dp
     ) {
         Row(
