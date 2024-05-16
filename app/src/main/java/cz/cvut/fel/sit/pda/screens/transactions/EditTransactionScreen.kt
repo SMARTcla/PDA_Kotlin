@@ -38,6 +38,7 @@ import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import java.time.format.DateTimeFormatter
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -121,13 +122,13 @@ fun EditTransactionScreen(
                         }
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        disabledTextColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
+                        textColor = Indigo50,
+                        disabledTextColor = Indigo50,
+                        cursorColor = Indigo50,
+                        focusedBorderColor = Indigo50,
+                        unfocusedBorderColor = Indigo50,
+                        focusedLabelColor = Indigo50,
+                        unfocusedLabelColor = Indigo50
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )

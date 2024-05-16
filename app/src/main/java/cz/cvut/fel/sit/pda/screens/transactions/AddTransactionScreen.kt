@@ -31,6 +31,8 @@ import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.black
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -88,8 +90,8 @@ fun AddTransactionScreen(
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Color.White,
-                            contentColor = if (isExpensesSelected) Color.White else Color.Black
+                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Indigo50,
+                            contentColor = if (isExpensesSelected) Indigo50 else Color.Black
                         )
                     ) {
                         Text("Expenses")
@@ -113,14 +115,16 @@ fun AddTransactionScreen(
                 OutlinedTextField(
                     value = uiState.name,
                     onValueChange = viewModel::updateName,
-                    label = { Text("Name", color = Color.White) },
+                    label = {
+                        Text("Name", color = Indigo50)
+                    },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
+                        textColor = Indigo50,
+                        cursorColor = Indigo50,
+                        focusedBorderColor = Indigo50,
+                        unfocusedBorderColor = Indigo50,
+                        focusedLabelColor = Indigo50,
+                        unfocusedLabelColor = Indigo50
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -128,16 +132,16 @@ fun AddTransactionScreen(
                     value = uiState.amount,
                     onValueChange = viewModel::updateAmount,
                     label = {
-                        Text("Amount", color = Color.White)
+                        Text("Amount", color = Indigo50)
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
+                        textColor = Indigo50,
+                        cursorColor = Indigo50,
+                        focusedBorderColor = Indigo50,
+                        unfocusedBorderColor = Indigo50,
+                        focusedLabelColor = Indigo50,
+                        unfocusedLabelColor = Indigo50
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -154,18 +158,18 @@ fun AddTransactionScreen(
                         }) {
                             Icon(
                                 Icons.Default.DateRange, contentDescription = "Select Date",
-                                tint = Color.White
+                                tint = Indigo50
                             )
                         }
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Color.White,
-                        disabledTextColor = Color.White,
-                        cursorColor = Color.White,
-                        focusedBorderColor = Color.White,
-                        unfocusedBorderColor = Color.White,
-                        focusedLabelColor = Color.White,
-                        unfocusedLabelColor = Color.White
+                        textColor = Indigo50,
+                        disabledTextColor = Indigo50,
+                        cursorColor = Indigo50,
+                        focusedBorderColor = Indigo50,
+                        unfocusedBorderColor = Indigo50,
+                        focusedLabelColor = Indigo50,
+                        unfocusedLabelColor = Indigo50
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -186,28 +190,10 @@ fun AddTransactionScreen(
                 Button(
                     onClick = {
                         saveTransaction(viewModel.getTransaction())
-                        /*if (uiState.name.isNotEmpty() && uiState.amount.isNotEmpty()) {
-                            try {
-                                val transactionAmount = uiState.amount.toDouble()
-                                addTransaction(
-                                    Transaction(
-                                        name = uiState.name,
-                                        amount = transactionAmount,
-                                        type = uiState.type,
-                                        date = selectedDate,
-                                        category = uiState.type.category,
-                                        cardName = uiState.card
-                                    )
-                                )
-                                navController.popBackStack()
-                            } catch (e: NumberFormatException) {
-                                Log.e("AddTransactionScreen", "Error parsing amount", e)
-                            }
-                        }*/
                     },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp, vertical = 20.dp)
+                        .fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
                     Text("Add Transaction", color = Grey50)
@@ -226,6 +212,7 @@ fun DropdownMenu(
     transactionTypes: List<TransactionType>
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var showHint by remember { mutableStateOf(true) }
 
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -238,10 +225,18 @@ fun DropdownMenu(
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .fillMaxWidth()
         ) {
-            Text(
-                text = selectedType.displayName,
-                color = Color.Black
-            )
+            if (showHint) {
+                Text(
+                    text = "Select Category",
+                    color = black
+                )
+            }
+            else {
+                Text(
+                    text = selectedType.displayName,
+                    color = Color.Black
+                )
+            }
         }
 
         DropdownMenu(
@@ -250,7 +245,8 @@ fun DropdownMenu(
             modifier = Modifier.fillMaxWidth(),
             content = {
                 Column(
-                    modifier = Modifier.background(Color.White, shape = RoundedCornerShape(4.dp))
+                    modifier = Modifier.background(Indigo50,
+                        shape = RoundedCornerShape(4.dp))
                 ) {
                     transactionTypes.forEach { type ->
                         DropdownMenuItem(
@@ -275,6 +271,7 @@ fun DropdownMenu(
 @Composable
 fun CardDropdownMenu(selectedCard: String, onCardSelected: (String) -> Unit, bankCards: List<BankCard>) {
     var expanded by remember { mutableStateOf(false) }
+    var showHint by remember { mutableStateOf(true) }
 
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -287,10 +284,17 @@ fun CardDropdownMenu(selectedCard: String, onCardSelected: (String) -> Unit, ban
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .fillMaxWidth()
         ) {
-            Text(
-                text = selectedCard,
-                color = Color.Black
-            )
+            if (showHint) {
+                Text(
+                    text = "Select Bank Card",
+                    color = black
+                )
+            } else {
+                Text(
+                    text = selectedCard,
+                    color = Color.Black
+                )
+            }
         }
 
         DropdownMenu(
@@ -318,8 +322,6 @@ fun CardDropdownMenu(selectedCard: String, onCardSelected: (String) -> Unit, ban
     }
 }
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 fun showDatePicker(context: Context, currentDate: LocalDate, onDateSelected: (LocalDate) -> Unit) {
     val calendar = Calendar.getInstance().apply {
         set(currentDate.year, currentDate.monthValue - 1, currentDate.dayOfMonth)
