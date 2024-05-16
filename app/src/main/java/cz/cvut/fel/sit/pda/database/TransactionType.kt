@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.models
+package cz.cvut.fel.sit.pda.database
 
 enum class TransactionType(val displayName: String, val category: String) {
     // Expences
