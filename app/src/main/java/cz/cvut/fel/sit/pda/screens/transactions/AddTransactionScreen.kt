@@ -1,48 +1,53 @@
 package cz.cvut.fel.sit.pda.screens.transactions
 
-import androidx.compose.material.*
+import android.app.DatePickerDialog
 import android.content.Context
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.models.TransactionType
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import android.app.DatePickerDialog
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.shape.RoundedCornerShape
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.TransactionEntity
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.BankCard
+import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddTransactionScreen(navController: NavHostController, addTransaction: (Transaction) -> Unit, cards: MutableList<BankCard>) {
-    var name by remember { mutableStateOf("") }
-    var amount by remember { mutableStateOf("") }
-    var selectedType by remember { mutableStateOf(TransactionType.RESTAURANT) }
+fun AddTransactionScreen(
+    navController: NavHostController,
+    viewModel: TransactionViewModel,
+    cards: List<BankCard>,
+    saveTransaction: (TransactionEntity) -> Unit,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
-    val context = LocalContext.current
-    var selectedCard by remember { mutableStateOf(cards.first().name) }
     var isExpensesSelected by remember { mutableStateOf(true) }
+
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -58,7 +63,9 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
         }
     ) { innerPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             color = DefaultColor
         ) {
             Column(
@@ -73,7 +80,10 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Button(
-                        onClick = { isExpensesSelected = true; selectedType = TransactionType.RESTAURANT},
+                        onClick = {
+                            isExpensesSelected = true
+                            viewModel.updateType(TransactionType.RESTAURANT)
+                        },
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp),
@@ -85,7 +95,10 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                         Text("Expenses")
                     }
                     Button(
-                        onClick = { isExpensesSelected = false; selectedType = TransactionType.SALARY },
+                        onClick = {
+                            isExpensesSelected = false
+                            viewModel.updateType(TransactionType.SALARY)
+                        },
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp),
@@ -98,8 +111,8 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                     }
                 }
                 OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
+                    value = uiState.name,
+                    onValueChange = viewModel::updateName,
                     label = { Text("Name", color = Color.White) },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = Color.White,
@@ -112,9 +125,11 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = amount,
-                    onValueChange = { amount = it },
-                    label = { Text("Amount", color = Color.White) },
+                    value = uiState.amount,
+                    onValueChange = viewModel::updateAmount,
+                    label = {
+                        Text("Amount", color = Color.White)
+                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = Color.White,
@@ -137,8 +152,10 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                                 selectedDate = date
                             }
                         }) {
-                            Icon(Icons.Default.DateRange, contentDescription = "Select Date",
-                                tint = Color.White)
+                            Icon(
+                                Icons.Default.DateRange, contentDescription = "Select Date",
+                                tint = Color.White
+                            )
                         }
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -153,41 +170,44 @@ fun AddTransactionScreen(navController: NavHostController, addTransaction: (Tran
                     modifier = Modifier.fillMaxWidth()
                 )
                 DropdownMenu(
-                    selectedType = selectedType,
-                    onTypeSelected = { selectedType = it },
+                    selectedType = uiState.type,
+                    onTypeSelected = viewModel::updateType,
                     transactionTypes = if (isExpensesSelected) {
-                        TransactionType.values().toList().filter { it.category == "Expenses" }
+                        TransactionType.entries.filter { it.category == "Expenses" }
                     } else {
-                        TransactionType.values().toList().filter { it.category == "Income" }
+                        TransactionType.entries.filter { it.category == "Income" }
                     }
                 )
                 CardDropdownMenu(
-                    selectedCard = selectedCard,
-                    onCardSelected = { selectedCard = it },
+                    selectedCard = uiState.cardName,
+                    onCardSelected = viewModel::updateCardName,
                     bankCards = cards
                 )
                 Button(
                     onClick = {
-                        if (name.isNotEmpty() && amount.isNotEmpty()) {
+                        saveTransaction(viewModel.getTransaction())
+                        /*if (uiState.name.isNotEmpty() && uiState.amount.isNotEmpty()) {
                             try {
-                                val transactionAmount = amount.toDouble()
+                                val transactionAmount = uiState.amount.toDouble()
                                 addTransaction(
                                     Transaction(
-                                        name = name,
+                                        name = uiState.name,
                                         amount = transactionAmount,
-                                        type = selectedType,
+                                        type = uiState.type,
                                         date = selectedDate,
-                                        category = selectedType.category,
-                                        cardName = selectedCard
+                                        category = uiState.type.category,
+                                        cardName = uiState.card
                                     )
                                 )
                                 navController.popBackStack()
                             } catch (e: NumberFormatException) {
                                 Log.e("AddTransactionScreen", "Error parsing amount", e)
                             }
-                        }
+                        }*/
                     },
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
                     Text("Add Transaction", color = Grey50)
