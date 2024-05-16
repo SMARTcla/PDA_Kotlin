@@ -27,13 +27,12 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.models.TransactionType
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun OverviewScreen(navController: NavHostController, transactions: MutableList<Transaction>) {
+fun OverviewScreen(navController: NavHostController, transactions: List<Transaction>) {
     var isExpensesSelected by remember { mutableStateOf(true) }
 
     val filteredTransactions = if (isExpensesSelected) {
@@ -118,7 +117,7 @@ fun OverviewScreen(navController: NavHostController, transactions: MutableList<T
 
 
 @Composable
-fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Double) {
+fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
     Box(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
