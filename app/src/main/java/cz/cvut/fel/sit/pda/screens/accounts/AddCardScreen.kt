@@ -35,7 +35,7 @@ import cz.cvut.fel.sit.pda.ui.theme.Grey50
 @Composable
 fun AddCardScreen(
     navController: NavHostController,
-    cards: List<BankCard>,
+    cards: List<BankEntity>,
     saveBank: (BankEntity) -> Unit
 ) {
     var cardName by remember { mutableStateOf("") }

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.*
 
@@ -29,8 +30,8 @@ import cz.cvut.fel.sit.pda.ui.theme.*
 @Composable
 fun EditCardScreen(
     navController: NavHostController,
-    card: BankCard,
-    onUpdate: (BankCard) -> Unit
+    card: BankEntity,
+    onUpdate: (BankEntity) -> Unit
 ) {
     var cardName by remember { mutableStateOf(card.name) }
 

@@ -3,15 +3,13 @@ package cz.cvut.fel.sit.pda.screens.accounts
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Green700
@@ -21,8 +19,8 @@ import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 @Composable
 fun CardDetailScreen(
     navController: NavHostController,
-    card: BankCard,
-    onDelete: (BankCard) -> Unit
+    bank: BankEntity,
+    onDelete: (BankEntity) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -58,14 +56,14 @@ fun CardDetailScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Card Name: ${card.name}",
+                            text = "Card Name: ${bank.name}",
                             style = typography.titleMedium
                         )
                     }
                 }
                 Spacer(Modifier.height(16.dp))
                 Button(
-                    onClick = { navController.navigate("editCard/${card.name}") },
+                    onClick = { navController.navigate("editCard/${bank.name}") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
@@ -80,7 +78,7 @@ fun CardDetailScreen(
                 }
                 Button(
                     onClick = {
-                        onDelete(card)
+                        onDelete(bank)
                         navController.popBackStack()
                     },
                     modifier = Modifier.fillMaxWidth()

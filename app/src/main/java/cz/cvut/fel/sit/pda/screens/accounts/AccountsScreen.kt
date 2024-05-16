@@ -28,6 +28,7 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.BankCard
 import cz.cvut.fel.sit.pda.models.Transaction
@@ -40,7 +41,7 @@ import cz.cvut.fel.sit.pda.ui.theme.Pink800
 fun AccountsScreen(
     navController: NavHostController,
     transactions: List<Transaction>,
-    banks: List<BankCard>
+    banks: List<BankEntity>
 ) {
     val accountsWithBalances = remember {
         mutableStateOf(listOf<BankCardWithBalance>())
@@ -97,10 +98,4 @@ fun AccountsScreen(
 }
 
 data class BankCardWithBalance(val name: String, val balance: Long)
-
-
-
-fun deleteCard(card: BankCard, cardsList: MutableList<BankCard>) {
-    cardsList.remove(card)
-}
 
