@@ -21,9 +21,10 @@ import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.ui.theme.Blue800
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.ui.theme.Green700
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
 @Composable
 fun TransactionDetailScreen(
@@ -84,7 +85,7 @@ fun TransactionDetailScreen(
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Green700
+                        containerColor = Purple800
                     )
                 ) {
                     Text(
@@ -102,7 +103,7 @@ fun TransactionDetailScreen(
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
+                        containerColor = Blue800
                     )
                 ) {
                     Text(

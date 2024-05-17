@@ -29,9 +29,9 @@ import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.ui.theme.Green700
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -92,7 +92,7 @@ fun EditCardScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Green700
+                        backgroundColor = Purple800
                     )
                 ) {
                     Text("Save Changes", color = Grey50)
