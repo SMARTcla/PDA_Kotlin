@@ -112,55 +112,10 @@ fun SettingsScreen(navController: NavHostController) {
     }
 }
 
-@Composable
-fun SettingsDrawerContent(navController: NavHostController, onDestinationClicked: () -> Unit) {
-    Column(modifier = Modifier.padding(start = 24.dp, top = 48.dp)) {
-        Text("Notifications", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("Add receipts", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("My receipts", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("Version", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("About us", modifier = Modifier.clickable(onClick = onDestinationClicked))
-        Text("Support", modifier = Modifier.clickable(onClick = onDestinationClicked))
-    }
-}
-
-@Composable
-fun SettingsContent(
-    navController: NavHostController,
-    paddingValues: PaddingValues,
-    onNotificationsClick: () -> Unit,
-    onAddReceiptsClick: () -> Unit,
-    onMyReceiptsClick: () -> Unit,
-    onVersionClick: () -> Unit,
-    onAboutClick: () -> Unit,
-    onSupportClick: () -> Unit
-) {
-    Column(modifier = Modifier.padding(paddingValues)) {
-        OptionItem("Notifications", onClick = onNotificationsClick)
-        OptionItem("Add receipts", onClick = onAddReceiptsClick)
-        OptionItem("My receipts", onClick = onMyReceiptsClick)
-        OptionItem("Version", onClick = onVersionClick)
-        OptionItem("About us", onClick = onAboutClick)
-        OptionItem("Support", onClick = onSupportClick)
-    }
-}
-
-@Composable
-fun OptionItem(text: String, onClick: (() -> Unit)? = null) {
-    Text(
-        text = text,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick ?: {})
-            .padding(16.dp)
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewSettingsScreen() {
     PDATheme {
-        // You need to provide a real navController here for previews involving navigation
         SettingsScreen(navController = rememberNavController())
     }
 }

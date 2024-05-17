@@ -37,7 +37,6 @@ fun AboutDialog(onDismiss: () -> Unit) {
 
                 Row {
 
-
                     Icon(
                         painter = painterResource(id = R.drawable.github),
                         contentDescription = "Github Icon",
@@ -82,7 +81,6 @@ fun AboutDialog(onDismiss: () -> Unit) {
                     style = MaterialTheme.typography.bodyLarge,
                 )
             }
-
 
         },
         confirmButton = {
