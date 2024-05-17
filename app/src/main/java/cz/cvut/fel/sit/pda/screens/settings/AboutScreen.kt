@@ -44,7 +44,7 @@ fun AboutDialog(onDismiss: () -> Unit) {
 
                     ClickableText(
                         text = AnnotatedString(
-                            text = "Open code repository"
+                            text = "Link source"
                         ),
                         style = MaterialTheme.typography.bodyLarge.copy(color = Purple800),
                         onClick = {
