@@ -16,7 +16,8 @@ import cz.cvut.fel.sit.pda.models.Transaction
 fun CategoriesGrid(
     isExpensesSelected: Boolean,
     categories: List<TransactionType>,
-    transactionSums: Map<TransactionType, List<Transaction>>
+    transactionSums: Map<TransactionType, List<Transaction>>,
+    onCategoryClick: (TransactionType) -> Unit
 ) {
     val filteredCategories =
         categories.filter { it.category == if (isExpensesSelected) "Expenses" else "Income" }
@@ -29,7 +30,11 @@ fun CategoriesGrid(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 rowCategories.forEach { category ->
-                    CategoryIcon(category, transactionSums[category]?.sumOf { it.amount } ?: 0L)
+                    CategoryIcon(
+                        category = category,
+                        sum = transactionSums[category]?.sumOf { it.amount } ?: 0L,
+                        onClick = { onCategoryClick(category) }
+                    )
                 }
             }
         }

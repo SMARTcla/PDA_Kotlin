@@ -60,7 +60,14 @@ fun CategoriesScreen(navController: NavHostController, transactions: List<Transa
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
-                CategoriesGrid(isExpensesSelected, TransactionType.entries, groupedTransactions)
+                CategoriesGrid(
+                    isExpensesSelected = isExpensesSelected,
+                    categories = TransactionType.entries,
+                    transactionSums = groupedTransactions,
+                    onCategoryClick = { category ->
+                        navController.navigate("categoryTransactions/${category.name}")
+                    }
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
             }

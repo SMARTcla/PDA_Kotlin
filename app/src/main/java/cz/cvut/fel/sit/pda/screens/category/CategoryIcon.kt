@@ -1,6 +1,7 @@
 package cz.cvut.fel.sit.pda.screens.category
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,7 +20,7 @@ import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 @Composable
-fun CategoryIcon(category: TransactionType, sum: Long) {
+fun CategoryIcon(category: TransactionType, sum: Long, onClick: () -> Unit) {
     val imageRes = when (category) {
         TransactionType.RESTAURANT -> R.drawable.restaurant
         TransactionType.GROCERIES -> R.drawable.groceries
@@ -33,12 +34,13 @@ fun CategoryIcon(category: TransactionType, sum: Long) {
         TransactionType.SALARY -> R.drawable.salary
         TransactionType.BENEFITS -> R.drawable.benefits
         TransactionType.OTHER_INC -> R.drawable.other
-
     }
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier
+            .padding(10.dp)
+            .clickable(onClick = onClick)
     ) {
         Image(
             painter = iconPainter,

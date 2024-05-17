@@ -11,11 +11,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cz.cvut.fel.sit.pda.database.GeldViewModel
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.screens.accounts.AccountsScreen
 import cz.cvut.fel.sit.pda.screens.accounts.AddCardScreen
 import cz.cvut.fel.sit.pda.screens.accounts.CardDetailScreen
 import cz.cvut.fel.sit.pda.screens.accounts.EditCardScreen
 import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
+import cz.cvut.fel.sit.pda.screens.category.CategoryTransactionsScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.add.AddTransactionScreen
@@ -174,5 +176,16 @@ fun AppNavigation(
                 })
             }
         }
+
+        composable("categoryTransactions/{category}") { backStackEntry ->
+            val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
+            val category = TransactionType.valueOf(categoryString)
+            CategoryTransactionsScreen(
+                navController = navController,
+                transactions = appUiState.transactions,
+                category = category
+            )
+        }
+
     }
 }
