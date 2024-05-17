@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,7 +55,9 @@ fun EditTransactionScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val isExpensesSelected by remember { mutableStateOf(true) }
+    var isExpensesSelected by remember {
+        mutableStateOf(uiState.type.category == "Expenses")
+    }
     val context = LocalContext.current
 
     Scaffold(
