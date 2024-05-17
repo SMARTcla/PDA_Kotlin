@@ -84,7 +84,7 @@ fun CardDetailScreen(
                     )
                 ) {
                     Text(
-                        "Edit",
+                        text = "Edit",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )
@@ -102,7 +102,7 @@ fun CardDetailScreen(
                     )
                 ) {
                     Text(
-                        "Delete",
+                        text = "Delete",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )

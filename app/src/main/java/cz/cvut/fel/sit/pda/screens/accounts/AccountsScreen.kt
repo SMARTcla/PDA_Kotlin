@@ -39,7 +39,9 @@ fun AccountsScreen(
 
     LaunchedEffect(transactions, banks) {
         val balances = transactions.groupBy { it.cardName }.mapValues { (_, trans) ->
-            trans.sumOf { if (it.type == TransactionType.SALARY || it.type == TransactionType.BENEFITS) it.amount else -it.amount }
+            trans.sumOf { if (it.type == TransactionType.SALARY
+                || it.type == TransactionType.BENEFITS) it.amount else -it.amount
+            }
         }
         val banksBalances = mutableListOf<BankCardWithBalance>()
 
@@ -66,7 +68,7 @@ fun AccountsScreen(
             FloatingActionButton(
                 onClick = { navController.navigate(GeldScreen.AddCardScreen.name) },
                 containerColor = DeepPurple500,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(2.dp)
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Account")
             }

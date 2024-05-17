@@ -95,7 +95,10 @@ fun EditCardScreen(
                         backgroundColor = Purple800
                     )
                 ) {
-                    Text("Save Changes", color = Grey50)
+                    Text(
+                        text = "Save Changes",
+                        color = Grey50
+                    )
                 }
             }
         }
