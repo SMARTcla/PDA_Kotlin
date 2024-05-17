@@ -177,7 +177,7 @@ fun AppNavigation(
             }
         }
 
-        composable("categoryTransactions/{category}") { backStackEntry ->
+        composable(route = "categoryTransactions/{category}") { backStackEntry ->
             val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
             val category = TransactionType.valueOf(categoryString)
             CategoryTransactionsScreen(
@@ -187,7 +187,7 @@ fun AppNavigation(
             )
         }
 
-        composable("categoryTransactions/{category}") { backStackEntry ->
+        composable(route = "categoryTransactions/{category}") { backStackEntry ->
             val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
             val category = TransactionType.valueOf(categoryString)
             CategoryTransactionsScreen(
@@ -196,7 +196,6 @@ fun AppNavigation(
                 category = category
             )
         }
-
 
     }
 }
