@@ -37,7 +37,7 @@ fun CategoryIcon(category: TransactionType, sum: Long, onClick: () -> Unit) {
         TransactionType.OTHER_EXP -> R.drawable.other
         TransactionType.SALARY -> R.drawable.salary
         TransactionType.BENEFITS -> R.drawable.benefits
-        TransactionType.OTHER_INC -> R.drawable.other
+        TransactionType.PROFIT -> R.drawable.other
     }
     val iconPainter: Painter = painterResource(id = imageRes)
     Column(

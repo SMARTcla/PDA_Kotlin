@@ -14,6 +14,6 @@ enum class TransactionType(val displayName: String, val category: String) {
     // Income
     SALARY(displayName = "Salary", category =  "Income"),
     BENEFITS(displayName = "Benefits", category =  "Income"),
-    OTHER_INC(displayName = "Others", category = "Income"),
+    PROFIT(displayName = "Profit", category = "Income"),
 
 }
