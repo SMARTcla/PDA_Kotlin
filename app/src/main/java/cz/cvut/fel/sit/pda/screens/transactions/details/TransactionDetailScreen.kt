@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens.transactions
+package cz.cvut.fel.sit.pda.screens.transactions.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +21,7 @@ import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.screens.transactions.toInfoList
 import cz.cvut.fel.sit.pda.ui.theme.Blue800
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
@@ -89,7 +90,7 @@ fun TransactionDetailScreen(
                     )
                 ) {
                     Text(
-                        "Edit",
+                        text = "Edit",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )
@@ -107,7 +108,7 @@ fun TransactionDetailScreen(
                     )
                 ) {
                     Text(
-                        "Delete",
+                        text = "Delete",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Indigo50
                     )

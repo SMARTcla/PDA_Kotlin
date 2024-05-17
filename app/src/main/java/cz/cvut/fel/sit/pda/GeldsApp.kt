@@ -18,9 +18,9 @@ import cz.cvut.fel.sit.pda.screens.accounts.EditCardScreen
 import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
-import cz.cvut.fel.sit.pda.screens.transactions.AddTransactionScreen
-import cz.cvut.fel.sit.pda.screens.transactions.EditTransactionScreen
-import cz.cvut.fel.sit.pda.screens.transactions.TransactionDetailScreen
+import cz.cvut.fel.sit.pda.screens.transactions.add.AddTransactionScreen
+import cz.cvut.fel.sit.pda.screens.transactions.details.EditTransactionScreen
+import cz.cvut.fel.sit.pda.screens.transactions.details.TransactionDetailScreen
 import cz.cvut.fel.sit.pda.screens.transactions.TransactionScreenUiState
 import cz.cvut.fel.sit.pda.screens.transactions.TransactionsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel

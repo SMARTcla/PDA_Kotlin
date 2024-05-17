@@ -1,11 +1,10 @@
-package cz.cvut.fel.sit.pda.screens.transactions
+package cz.cvut.fel.sit.pda.screens.transactions.details
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -19,12 +18,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,32 +35,32 @@ import cz.cvut.fel.sit.pda.components.GeldsBottomBar
 import cz.cvut.fel.sit.pda.database.BankEntity
 import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
+import cz.cvut.fel.sit.pda.screens.transactions.CardDropdownMenu
+import cz.cvut.fel.sit.pda.screens.transactions.DropdownMenu
+import cz.cvut.fel.sit.pda.screens.transactions.showDatePicker
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
-import cz.cvut.fel.sit.pda.ui.theme.Grey50
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AddTransactionScreen(
+fun EditTransactionScreen(
     navController: NavHostController,
     viewModel: TransactionViewModel,
-    cards: List<BankEntity>,
-    saveTransaction: (TransactionEntity) -> Unit,
+    banks: List<BankEntity>,
+    updateTransaction: (TransactionEntity) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
-    var isExpensesSelected by remember { mutableStateOf(true) }
 
+    val isExpensesSelected by remember { mutableStateOf(true) }
     val context = LocalContext.current
 
     Scaffold(
         topBar = {
             BasicAppBar(
-                title = "Add Transaction",
+                title = "Edit Transaction",
                 navController = navController,
                 canNavigateBack = true,
                 onNavigateBack = { navController.popBackStack() }
@@ -86,94 +83,48 @@ fun AddTransactionScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        onClick = {
-                            isExpensesSelected = true
-                            viewModel.updateType(TransactionType.RESTAURANT)
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (isExpensesSelected) DeepPurple500 else Indigo50,
-                            contentColor = if (isExpensesSelected) Indigo50 else Color.Black
-                        )
-                    ) {
-                        Text(
-                            text = "Expenses",
-                            style = MaterialTheme.typography.headlineSmall
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            isExpensesSelected = false
-                            viewModel.updateType(TransactionType.SALARY)
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (!isExpensesSelected) DeepPurple500 else Color.White,
-                            contentColor = if (!isExpensesSelected) Color.White else Color.Black
-                        )
-                    ) {
-                        Text(
-                            text = "Income",
-                            style = MaterialTheme.typography.headlineSmall
-                        )
-                    }
-                }
                 OutlinedTextField(
                     value = uiState.name,
                     onValueChange = viewModel::updateName,
-                    label = {
-                        Text("Name", color = Indigo50)
-                    },
+                    label = { Text("Name", color = Color.White) },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Indigo50,
-                        cursorColor = Indigo50,
-                        focusedBorderColor = Indigo50,
-                        unfocusedBorderColor = Indigo50,
-                        focusedLabelColor = Indigo50,
-                        unfocusedLabelColor = Indigo50
+                        textColor = Color.White,
+                        cursorColor = Color.White,
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.White,
+                        focusedLabelColor = Color.White,
+                        unfocusedLabelColor = Color.White
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = uiState.amount,
                     onValueChange = viewModel::updateAmount,
-                    label = {
-                        Text("Amount", color = Indigo50)
-                    },
+                    label = { Text("Amount", color = Color.White) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = Indigo50,
-                        cursorColor = Indigo50,
-                        focusedBorderColor = Indigo50,
-                        unfocusedBorderColor = Indigo50,
-                        focusedLabelColor = Indigo50,
-                        unfocusedLabelColor = Indigo50
+                        textColor = Color.White,
+                        cursorColor = Color.White,
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.White,
+                        focusedLabelColor = Color.White,
+                        unfocusedLabelColor = Color.White
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = selectedDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                    value = uiState.date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                     onValueChange = {},
                     label = { Text("Date", color = Color.White) },
                     readOnly = true,
                     trailingIcon = {
                         IconButton(onClick = {
-                            showDatePicker(context, selectedDate) { date ->
-                                selectedDate = date
-                            }
+                            showDatePicker(context, uiState.date, viewModel::updateDate)
                         }) {
                             Icon(
-                                Icons.Default.DateRange, contentDescription = "Select Date",
-                                tint = Indigo50
+                                Icons.Default.DateRange,
+                                contentDescription = "Select Date",
+                                tint = Color.White
                             )
                         }
                     },
@@ -200,26 +151,19 @@ fun AddTransactionScreen(
                 CardDropdownMenu(
                     selectedCard = uiState.cardName,
                     onCardSelected = viewModel::updateCardName,
-                    bankCards = cards
+                    bankCards = banks
                 )
                 Button(
                     onClick = {
-                        saveTransaction(viewModel.getTransaction())
+                        updateTransaction(viewModel.getTransaction())
+                        navController.popBackStack()
                     },
-                    modifier = Modifier
-                        //
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
-                    Text(
-                        text = "Add Transaction",
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = Grey50
-                    )
+                    Text("Done")
                 }
             }
         }
     }
 }
-
-
