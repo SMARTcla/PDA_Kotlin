@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.geojson.jackson)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.compose)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
