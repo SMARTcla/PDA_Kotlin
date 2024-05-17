@@ -1,5 +1,7 @@
 package cz.cvut.fel.sit.pda.screens.settings
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -10,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import cz.cvut.fel.sit.pda.services.NotificationService
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
 @Composable
@@ -19,12 +23,12 @@ fun NotificationsDialog(
     onEnableChange: (Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text(
-                text = "Notification Settings"
-            )
+            Text(text = "Notification Settings")
         },
         text = {
             Row(
@@ -33,17 +37,19 @@ fun NotificationsDialog(
             ) {
                 Text(
                     text = "Switch Notifications",
-                    style = MaterialTheme.typography.bodyLarge.copy
-                        (color = Purple800),
-                    modifier =
-                    Modifier.padding(
-                        horizontal = 14.dp,
-                        vertical = 14.dp
-                    )
+                    style = MaterialTheme.typography.bodyLarge.copy(color = Purple800),
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 14.dp)
                 )
                 Switch(
                     checked = enableNotifications,
-                    onCheckedChange = onEnableChange
+                    onCheckedChange = { enabled ->
+                        onEnableChange(enabled)
+                        if (enabled) {
+                            context.startService(Intent(context, NotificationService::class.java))
+                        } else {
+                            context.stopService(Intent(context, NotificationService::class.java))
+                        }
+                    }
                 )
             }
         },

@@ -1,6 +1,8 @@
 package cz.cvut.fel.sit.pda.screens.settings
 
 import MyReceiptsDialog
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -25,24 +27,33 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cz.cvut.fel.sit.pda.screens.settings.receipts.AddReceiptsDialog
+import cz.cvut.fel.sit.pda.services.NotificationService
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 import kotlinx.coroutines.launch
+
+private const val PREFS_NAME = "settings_prefs"
+private const val PREF_ENABLE_NOTIFICATIONS = "enable_notifications"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavHostController) {
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     var showVersionDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
     var showSupportDialog by remember { mutableStateOf(false) }
     var showNotificationsDialog by remember { mutableStateOf(false) }
     var showAddReceiptsDialog by remember { mutableStateOf(false) }
     var showMyReceiptsDialog by remember { mutableStateOf(false) }
-    var enableNotifications by remember { mutableStateOf(false) }
+    var enableNotifications by remember {
+        mutableStateOf(sharedPreferences.getBoolean(PREF_ENABLE_NOTIFICATIONS, false))
+    }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -93,7 +104,15 @@ fun SettingsScreen(navController: NavHostController) {
                     enableNotifications = enableNotifications,
                     onEnableChange = { enabled ->
                         enableNotifications = enabled
-                        // Сохраните настройку уведомлений здесь
+                        with(sharedPreferences.edit()) {
+                            putBoolean(PREF_ENABLE_NOTIFICATIONS, enabled)
+                            apply()
+                        }
+                        if (enabled) {
+                            context.startService(Intent(context, NotificationService::class.java))
+                        } else {
+                            context.stopService(Intent(context, NotificationService::class.java))
+                        }
                     },
                     onDismiss = { showNotificationsDialog = false }
                 )
