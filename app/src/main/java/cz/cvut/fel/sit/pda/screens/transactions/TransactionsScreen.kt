@@ -31,8 +31,6 @@ import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 @Composable
 fun TransactionsScreen(navController: NavHostController, transactions: List<Transaction>) {
     val groupedTransactions = transactions
-        .filter { it.type != TransactionType.SALARY }
-        .filter { it.type != TransactionType.BENEFITS }
         .groupBy { it.date }
         .toSortedMap(compareByDescending { it })
 
