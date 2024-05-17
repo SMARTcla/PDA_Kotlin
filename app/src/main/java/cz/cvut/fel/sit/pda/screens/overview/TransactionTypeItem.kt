@@ -16,11 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.ui.theme.Grey200
-import cz.cvut.fel.sit.pda.ui.theme.black
+import cz.cvut.fel.sit.pda.ui.theme.*
+
 
 @Composable
 fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
+
+    val amountColor = if (transactionType.category == "Expenses") Pink800 else Green700
+
     Box(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -40,8 +43,8 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(
-                text = "$totalAmount",
-                color = black,
+                text = "$totalAmount CZK",
+                color = amountColor,
                 style = MaterialTheme.typography.headlineSmall
             )
         }
