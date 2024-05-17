@@ -11,7 +11,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.fel.sit.pda.ui.theme.Purple80
+import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
 @Composable
 fun NotificationsDialog(
@@ -34,8 +34,12 @@ fun NotificationsDialog(
                 Text(
                     text = "Switch Notifications",
                     style = MaterialTheme.typography.bodyLarge.copy
-                        (color = Purple80),
-                    modifier = Modifier.weight(1f)
+                        (color = Purple800),
+                    modifier =
+                    Modifier.padding(
+                        horizontal = 14.dp,
+                        vertical = 14.dp
+                    )
                 )
                 Switch(
                     checked = enableNotifications,

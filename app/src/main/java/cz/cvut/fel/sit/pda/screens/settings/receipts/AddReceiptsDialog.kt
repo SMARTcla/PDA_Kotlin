@@ -3,7 +3,13 @@ package cz.cvut.fel.sit.pda.screens.settings.receipts
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -13,31 +19,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.FileProvider
 import androidx.compose.ui.unit.dp
-import cz.cvut.fel.sit.pda.ui.theme.Purple80
+import androidx.core.content.FileProvider
+import cz.cvut.fel.sit.pda.ui.theme.Purple800
 import java.io.File
 
 @Composable
 fun AddReceiptsDialog(onDismiss: () -> Unit, onPictureSelected: (Uri) -> Unit) {
     val context = LocalContext.current
 
-    val galleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { onPictureSelected(it) }
-        onDismiss()
-    }
+    val galleryLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                onPictureSelected(it)
+            }
+            onDismiss()
+        }
 
     val photoUri = remember {
         val photoFile = File(context.cacheDir, "new_receipt_photo.jpg")
-        FileProvider.getUriForFile(context, "${context.packageName}.provider", photoFile)
+        FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.provider", photoFile
+        )
     }
 
-    val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-        if (success) {
-            onPictureSelected(photoUri)
+    val cameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                onPictureSelected(photoUri)
+            }
+            onDismiss()
         }
-        onDismiss()
-    }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -46,8 +59,8 @@ fun AddReceiptsDialog(onDismiss: () -> Unit, onPictureSelected: (Uri) -> Unit) {
             Text(
                 text = "Choose a picture from your gallery or take a new photo.",
                 style = MaterialTheme.typography.bodyLarge.copy
-                    (color = Purple80),
-                )
+                    (color = Purple800),
+            )
         },
         confirmButton = {
             Column {
