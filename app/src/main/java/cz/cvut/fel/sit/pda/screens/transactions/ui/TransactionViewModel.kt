@@ -71,11 +71,3 @@ class TransactionViewModel(
 
 }
 
-class TransactionViewModelFactory(
-    private val transactionScreenUiState: TransactionScreenUiState
-) : ViewModelProvider.NewInstanceFactory() {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return TransactionViewModel(transactionScreenUiState) as T
-    }
-}
