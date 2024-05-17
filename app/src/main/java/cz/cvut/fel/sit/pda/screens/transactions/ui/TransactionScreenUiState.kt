@@ -1,4 +1,4 @@
-package cz.cvut.fel.sit.pda.screens.transactions
+package cz.cvut.fel.sit.pda.screens.transactions.ui
 
 import cz.cvut.fel.sit.pda.database.TransactionType
 import java.time.LocalDate

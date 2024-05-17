@@ -23,7 +23,7 @@ import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.add.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.transactions.details.EditTransactionScreen
 import cz.cvut.fel.sit.pda.screens.transactions.details.TransactionDetailScreen
-import cz.cvut.fel.sit.pda.screens.transactions.TransactionScreenUiState
+import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionScreenUiState
 import cz.cvut.fel.sit.pda.screens.transactions.TransactionsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModelFactory

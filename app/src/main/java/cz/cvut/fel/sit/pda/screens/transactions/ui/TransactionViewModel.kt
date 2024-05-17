@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.screens.transactions.TransactionScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
