@@ -88,7 +88,7 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = if (isExpensesSelected) DeepPurple500 else Indigo50,
-                            contentColor = if (isExpensesSelected) Indigo50 else Color.Black
+                            contentColor = if (isExpensesSelected) Indigo50 else DeepPurple500
                         )
                     ) {
                         Text(
@@ -104,8 +104,8 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             .weight(1f)
                             .height(56.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (!isExpensesSelected) DeepPurple500 else BlueGrey850,
-                            contentColor = if (!isExpensesSelected) Indigo50 else Indigo100
+                            containerColor = if (!isExpensesSelected) DeepPurple500 else Indigo50,
+                            contentColor = if (!isExpensesSelected) Indigo50 else DeepPurple500
                         )
                     ) {
                         Text(

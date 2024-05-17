@@ -14,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -83,7 +84,11 @@ fun AddCardScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
-                    Text("Add Card", color = Grey50)
+                    Text(
+                        text = "Add Card",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Grey50
+                    )
                 }
             }
         }

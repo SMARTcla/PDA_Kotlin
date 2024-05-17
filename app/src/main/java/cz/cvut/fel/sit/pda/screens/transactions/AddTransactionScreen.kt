@@ -19,6 +19,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,7 +103,10 @@ fun AddTransactionScreen(
                             contentColor = if (isExpensesSelected) Indigo50 else Color.Black
                         )
                     ) {
-                        Text("Expenses")
+                        Text(
+                            text = "Expenses",
+                            style = MaterialTheme.typography.headlineSmall
+                        )
                     }
                     Button(
                         onClick = {
@@ -117,7 +121,10 @@ fun AddTransactionScreen(
                             contentColor = if (!isExpensesSelected) Color.White else Color.Black
                         )
                     ) {
-                        Text("Income")
+                        Text(
+                            text = "Income",
+                            style = MaterialTheme.typography.headlineSmall
+                        )
                     }
                 }
                 OutlinedTextField(
@@ -200,11 +207,15 @@ fun AddTransactionScreen(
                         saveTransaction(viewModel.getTransaction())
                     },
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 20.dp)
+                        //
                         .fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = DeepPurple500)
                 ) {
-                    Text("Add Transaction", color = Grey50)
+                    Text(
+                        text = "Add Transaction",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Grey50
+                    )
                 }
             }
         }
