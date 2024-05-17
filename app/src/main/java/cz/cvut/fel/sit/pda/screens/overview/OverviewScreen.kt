@@ -133,32 +133,3 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
         }
     }
 }
-
-@Composable
-fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
-    Box(
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .height(70.dp)
-            .background(Grey200, RoundedCornerShape(8.dp))
-            .padding(16.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = transactionType.displayName,
-                color = black,
-                style = MaterialTheme.typography.headlineSmall
-            )
-            Text(
-                text = "$totalAmount",
-                color = black,
-                style = MaterialTheme.typography.headlineSmall
-            )
-        }
-    }
-}
