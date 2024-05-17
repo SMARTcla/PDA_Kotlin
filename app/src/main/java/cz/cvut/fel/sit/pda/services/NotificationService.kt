@@ -43,17 +43,3 @@ class NotificationService : Service() {
     }
 }
 
-class NotificationReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
-        val notificationManager =
-            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val builder = NotificationCompat.Builder(context, NotificationService.CHANNEL_ID)
-            .setSmallIcon(R.drawable.notification)
-            .setContentTitle("Reminder")
-            .setContentText("Please back to App")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
-
-        notificationManager.notify(NotificationService.NOTIFICATION_ID, builder.build())
-    }
-}
