@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.fel.sit.pda.ui.theme.Purple80
 
 @Composable
 fun NotificationsDialog(
@@ -19,14 +21,20 @@ fun NotificationsDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Notification Settings") },
+        title = {
+            Text(
+                text = "Notification Settings"
+            )
+        },
         text = {
             Row(
                 modifier = Modifier.padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Enable Notifications",
+                    text = "Switch Notifications",
+                    style = MaterialTheme.typography.bodyLarge.copy
+                        (color = Purple80),
                     modifier = Modifier.weight(1f)
                 )
                 Switch(
@@ -37,7 +45,7 @@ fun NotificationsDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("OK")
+                Text(text = "OK")
             }
         }
     )
