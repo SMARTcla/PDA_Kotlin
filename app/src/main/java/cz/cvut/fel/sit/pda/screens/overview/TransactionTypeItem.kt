@@ -1,6 +1,7 @@
 package cz.cvut.fel.sit.pda.screens.overview
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,7 @@ import cz.cvut.fel.sit.pda.ui.theme.*
 
 
 @Composable
-fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
+fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long, onClick: () -> Unit) {
 
     val amountColor = if (transactionType.category == "Expenses") Pink800 else Green700
 
@@ -30,6 +31,7 @@ fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long) {
             .fillMaxWidth()
             .height(70.dp)
             .background(Grey200, RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick)
             .padding(16.dp)
     ) {
         Row(

@@ -187,5 +187,16 @@ fun AppNavigation(
             )
         }
 
+        composable("categoryTransactions/{category}") { backStackEntry ->
+            val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
+            val category = TransactionType.valueOf(categoryString)
+            CategoryTransactionsScreen(
+                navController = navController,
+                transactions = appUiState.transactions,
+                category = category
+            )
+        }
+
+
     }
 }

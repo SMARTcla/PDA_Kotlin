@@ -1,15 +1,7 @@
 package cz.cvut.fel.sit.pda.screens.overview
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -27,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
+import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
@@ -116,7 +109,9 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                         item {
                             TransactionTypeItem(
                                 transactionType,
-                                transactionsForType.sumOf { it.amount })
+                                transactionsForType.sumOf { it.amount },
+                                onClick = { navController.navigate("categoryTransactions/${transactionType.name}") }
+                            )
                         }
                     }
                 }
