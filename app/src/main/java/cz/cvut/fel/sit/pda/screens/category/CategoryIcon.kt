@@ -1,10 +1,14 @@
 package cz.cvut.fel.sit.pda.screens.category
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.ui.theme.Indigo50
+import cz.cvut.fel.sit.pda.ui.theme.*
 
 @Composable
 fun CategoryIcon(category: TransactionType, sum: Long, onClick: () -> Unit) {
@@ -45,8 +49,11 @@ fun CategoryIcon(category: TransactionType, sum: Long, onClick: () -> Unit) {
         Image(
             painter = iconPainter,
             contentDescription = category.displayName,
-            modifier = Modifier.size(66.dp)
+            modifier = Modifier
+                .size(66.dp)
+                .border(width = 2.dp, color = Indigo50, shape = CircleShape),
         )
+        Spacer(Modifier.height(4.dp))
 
         Text(
             text = category.displayName,

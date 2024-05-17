@@ -32,6 +32,8 @@ fun CategoriesScreen(navController: NavHostController, transactions: List<Transa
     val groupedTransactions = filteredTransactions.groupBy { it.type }
         .toSortedMap(compareBy { it.displayName })
 
+    val totalAmount = filteredTransactions.sumOf { it.amount }
+
     Scaffold(
         topBar = {
             BasicAppBar(
@@ -56,6 +58,7 @@ fun CategoriesScreen(navController: NavHostController, transactions: List<Transa
 
                 RoundedButton(
                     isExpensesSelected = isExpensesSelected,
+                    totalAmount = totalAmount,
                     onToggle = { isExpensesSelected = !isExpensesSelected }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
