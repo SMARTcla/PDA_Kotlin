@@ -12,9 +12,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.models.Transaction
+import cz.cvut.fel.sit.pda.ui.theme.*
 
 @Composable
 fun TransactionItem(transaction: Transaction, navController: NavHostController) {
+
+    val amountColor = if (transaction.type.category == "Expenses")
+        Pink800 else Green700
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +48,8 @@ fun TransactionItem(transaction: Transaction, navController: NavHostController) 
             }
             Text(
                 text = "${transaction.amount} CZK",
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall,
+                color = amountColor
             )
         }
     }
