@@ -1,5 +1,8 @@
 package cz.cvut.fel.sit.pda
 
+/**
+ * Enum representing screens in the Geld application.
+ */
 enum class GeldScreen {
     Accounts,
     Overview,

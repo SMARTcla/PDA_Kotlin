@@ -20,15 +20,21 @@ import cz.cvut.fel.sit.pda.screens.category.CategoriesScreen
 import cz.cvut.fel.sit.pda.screens.category.CategoryTransactionsScreen
 import cz.cvut.fel.sit.pda.screens.overview.OverviewScreen
 import cz.cvut.fel.sit.pda.screens.settings.SettingsScreen
+import cz.cvut.fel.sit.pda.screens.transactions.TransactionsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.add.AddTransactionScreen
 import cz.cvut.fel.sit.pda.screens.transactions.details.EditTransactionScreen
 import cz.cvut.fel.sit.pda.screens.transactions.details.TransactionDetailScreen
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionScreenUiState
-import cz.cvut.fel.sit.pda.screens.transactions.TransactionsScreen
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModel
 import cz.cvut.fel.sit.pda.screens.transactions.ui.TransactionViewModelFactory
 import kotlinx.coroutines.launch
 
+/**
+ * Composable function for handling navigation between screens in the Geld application.
+ *
+ * @param navController The navigation controller managing navigation between screens.
+ * @param geldViewModel The view model containing the UI state and logic for the application.
+ */
 @SuppressLint("ComposableDestinationInComposeScope")
 @Composable
 fun AppNavigation(
@@ -178,7 +184,8 @@ fun AppNavigation(
         }
 
         composable(route = "categoryTransactions/{category}") { backStackEntry ->
-            val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
+            val categoryString =
+                backStackEntry.arguments?.getString("category") ?: return@composable
             val category = TransactionType.valueOf(categoryString)
             CategoryTransactionsScreen(
                 navController = navController,
@@ -188,7 +195,8 @@ fun AppNavigation(
         }
 
         composable(route = "categoryTransactions/{category}") { backStackEntry ->
-            val categoryString = backStackEntry.arguments?.getString("category") ?: return@composable
+            val categoryString =
+                backStackEntry.arguments?.getString("category") ?: return@composable
             val category = TransactionType.valueOf(categoryString)
             CategoryTransactionsScreen(
                 navController = navController,

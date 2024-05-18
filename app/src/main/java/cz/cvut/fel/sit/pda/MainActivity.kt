@@ -16,12 +16,17 @@ import cz.cvut.fel.sit.pda.database.GeldViewModel
 import cz.cvut.fel.sit.pda.services.NotificationService.Companion.CHANNEL_ID
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
+/**
+ * Main activity of the application.
+ */
 class MainActivity : ComponentActivity() {
 
     private lateinit var navHostController: NavHostController
 
+    // Lazy initialization of the database instance
     val db by lazy { GeldDatabase.getInstance(this) }
 
+    // View model initialization
     private val viewModel: GeldViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -30,6 +35,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Called when the activity is starting. Sets up the content view using Jetpack Compose
+     * and initializes the UI.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     * down, this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,6 +58,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Creates a notification channel for the application.
+     */
     private fun createNotificationChannel() {
         val name = "Reminder Channel"
         val descriptionText = "Channel for notifications"
