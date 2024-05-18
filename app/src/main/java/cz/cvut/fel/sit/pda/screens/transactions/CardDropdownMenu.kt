@@ -21,6 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.BankEntity
 
+/**
+ * Composable function to display a dropdown menu for selecting bank cards.
+ *
+ * @param selectedCard The currently selected bank card.
+ * @param onCardSelected Callback function to be invoked when a bank card is selected.
+ * @param bankCards List of available bank cards to display in the dropdown.
+ */
 @Composable
 fun CardDropdownMenu(
     selectedCard: String,
@@ -37,7 +44,10 @@ fun CardDropdownMenu(
         Box(
             modifier = Modifier
                 .clickable { expanded = true }
-                .background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
+                .background(
+                    MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(4.dp)
+                )
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .fillMaxWidth()
         ) {
@@ -74,7 +84,10 @@ fun CardDropdownMenu(
                             expanded = false
                         },
                         text = {
-                            Text(card.name, color = MaterialTheme.colorScheme.onSurface)
+                            Text(
+                                card.name,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                         }
                     )
                 }

@@ -45,6 +45,14 @@ import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import java.time.format.DateTimeFormatter
 
+/**
+ * Composable function for editing a transaction.
+ *
+ * @param navController The navigation controller used for navigating between screens.
+ * @param viewModel The view model providing data and logic for the edit screen.
+ * @param banks The list of banks for displaying card options.
+ * @param updateTransaction Callback function to update the transaction after editing.
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditTransactionScreen(

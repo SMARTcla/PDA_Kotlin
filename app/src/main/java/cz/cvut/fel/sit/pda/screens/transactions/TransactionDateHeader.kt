@@ -19,6 +19,12 @@ import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+/**
+ * Composable function to display a header for a group of transactions on a specific date.
+ *
+ * @param date The date for which the transactions are grouped.
+ * @param totalAmount The total amount of transactions for the given date.
+ */
 @Composable
 fun TransactionDateHeader(date: LocalDate, totalAmount: Long) {
     val dayOfMonthFormatter = DateTimeFormatter.ofPattern("dd")

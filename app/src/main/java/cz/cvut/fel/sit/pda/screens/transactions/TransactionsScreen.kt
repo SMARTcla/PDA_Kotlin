@@ -21,12 +21,16 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
-
+/**
+ * Composable function for displaying a list of transactions grouped by date.
+ *
+ * @param navController The navigation controller used for navigating between screens.
+ * @param transactions The list of transactions to display.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TransactionsScreen(navController: NavHostController, transactions: List<Transaction>) {
@@ -70,7 +74,9 @@ fun TransactionsScreen(navController: NavHostController, transactions: List<Tran
                 ) {
                     groupedTransactions.forEach { (date, transactionsForDate) ->
                         stickyHeader {
-                            TransactionDateHeader(date, transactionsForDate.sumOf { it.amount })
+                            TransactionDateHeader(date, transactionsForDate.sumOf {
+                                it.amount
+                            })
                         }
                         items(transactionsForDate) { transaction ->
                             TransactionItem(transaction, navController)
@@ -82,6 +88,11 @@ fun TransactionsScreen(navController: NavHostController, transactions: List<Tran
     }
 }
 
+/**
+ * Converts a Transaction object to a list of strings containing transaction information.
+ *
+ * @return A list of strings containing transaction information.
+ */
 fun Transaction.toInfoList(): List<String> {
     return listOf(
         "Name: $name",

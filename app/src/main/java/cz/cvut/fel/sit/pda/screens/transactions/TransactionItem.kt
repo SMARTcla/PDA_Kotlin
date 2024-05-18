@@ -1,7 +1,11 @@
 package cz.cvut.fel.sit.pda.screens.transactions
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,8 +16,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.models.Transaction
-import cz.cvut.fel.sit.pda.ui.theme.*
+import cz.cvut.fel.sit.pda.ui.theme.Green700
+import cz.cvut.fel.sit.pda.ui.theme.Pink800
 
+/**
+ * Composable function to display a single transaction item.
+ *
+ * @param transaction The transaction to display.
+ * @param navController The navigation controller used for navigating to transaction details.
+ */
 @Composable
 fun TransactionItem(transaction: Transaction, navController: NavHostController) {
 

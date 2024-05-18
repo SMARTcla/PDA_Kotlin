@@ -27,6 +27,13 @@ import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
+/**
+ * Composable function for displaying transaction details screen.
+ *
+ * @param navController The navigation controller used for navigating between screens.
+ * @param transaction The transaction to display details of.
+ * @param deleteTransaction Callback function to delete the transaction.
+ */
 @Composable
 fun TransactionDetailScreen(
     navController: NavHostController,

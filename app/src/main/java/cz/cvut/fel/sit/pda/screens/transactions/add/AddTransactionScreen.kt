@@ -49,7 +49,14 @@ import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-
+/**
+ * Composable function for adding a new transaction.
+ *
+ * @param navController The navigation controller used for navigating between screens.
+ * @param viewModel The view model providing data and logic for the add screen.
+ * @param cards The list of bank entities for displaying card options.
+ * @param saveTransaction Callback function to save the transaction after adding.
+ */
 @Composable
 fun AddTransactionScreen(
     navController: NavHostController,
@@ -164,7 +171,11 @@ fun AddTransactionScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = selectedDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                    value = selectedDate.format(
+                        DateTimeFormatter.ofPattern(
+                            "dd MMMM yyyy"
+                        )
+                    ),
                     onValueChange = {},
                     label = { Text("Date", color = Color.White) },
                     readOnly = true,

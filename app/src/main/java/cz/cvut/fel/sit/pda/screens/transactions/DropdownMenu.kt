@@ -21,6 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
 
+/**
+ * Composable function to display a dropdown menu for selecting transaction types.
+ *
+ * @param selectedType The currently selected transaction type.
+ * @param onTypeSelected Callback function to be invoked when a transaction type is selected.
+ * @param transactionTypes List of available transaction types to display in the dropdown.
+ */
 @Composable
 fun DropdownMenu(
     selectedType: TransactionType,
@@ -37,7 +44,10 @@ fun DropdownMenu(
         Box(
             modifier = Modifier
                 .clickable { expanded = true }
-                .background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(4.dp))
+                .background(
+                    MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(4.dp)
+                )
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .fillMaxWidth()
         ) {
@@ -74,7 +84,10 @@ fun DropdownMenu(
                             expanded = false
                         },
                         text = {
-                            Text(type.displayName, color = MaterialTheme.colorScheme.onSurface)
+                            Text(
+                                type.displayName,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                         }
                     )
                 }
