@@ -23,6 +23,12 @@ import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
+/**
+ * Composable function for displaying the categories screen.
+ *
+ * @param navController The navigation controller.
+ * @param transactions List of transactions to display.
+ */
 @Composable
 fun CategoriesScreen(navController: NavHostController, transactions: List<Transaction>) {
     var isExpensesSelected by remember { mutableStateOf(true) }

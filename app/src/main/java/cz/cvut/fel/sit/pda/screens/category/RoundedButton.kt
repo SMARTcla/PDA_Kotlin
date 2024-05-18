@@ -17,7 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.fel.sit.pda.ui.theme.*
+import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
 const val TOTAL_EXPENSES = "Total Expenses:\n"
 const val TOTAL_INCOME = "Total Income:\n"
@@ -25,6 +26,13 @@ const val CURRENCY = " CZK\n\n"
 const val GO_TO_INCOME = "Go to Income"
 const val GO_TO_EXPENSES = "Go to Expenses"
 
+/**
+ * Composable function for displaying a rounded button for toggling between expenses and income.
+ *
+ * @param isExpensesSelected Flag indicating whether expenses are selected.
+ * @param totalAmount The total amount of expenses or income.
+ * @param onToggle Callback function for toggling between expenses and income.
+ */
 @Composable
 fun RoundedButton(isExpensesSelected: Boolean, totalAmount: Long, onToggle: () -> Unit) {
     val expensesText = buildAnnotatedString {

@@ -12,6 +12,14 @@ import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
 
+/**
+ * Composable function for displaying a grid of categories.
+ *
+ * @param isExpensesSelected Flag indicating whether expenses are selected.
+ * @param categories List of transaction categories.
+ * @param transactionSums Map of transaction types to their sums.
+ * @param onCategoryClick Callback function for when a category is clicked.
+ */
 @Composable
 fun CategoriesGrid(
     isExpensesSelected: Boolean,

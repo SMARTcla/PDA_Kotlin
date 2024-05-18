@@ -21,8 +21,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.ui.theme.*
+import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
+/**
+ * Composable function for displaying a category icon.
+ *
+ * @param category The transaction category.
+ * @param sum The total sum of transactions for the category.
+ * @param onClick Callback function for when the icon is clicked.
+ */
 @Composable
 fun CategoryIcon(category: TransactionType, sum: Long, onClick: () -> Unit) {
     val imageRes = when (category) {
