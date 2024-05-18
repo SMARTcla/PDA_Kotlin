@@ -15,6 +15,12 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.ui.theme.Green700
 import cz.cvut.fel.sit.pda.ui.theme.Pink800
 
+/**
+ * Composable function for displaying an account item.
+ *
+ * @param account The bank card with balance to display.
+ * @param navController The navigation controller for navigating to card details.
+ */
 @Composable
 fun AccountItem(account: BankCardWithBalance, navController: NavHostController) {
     Card(

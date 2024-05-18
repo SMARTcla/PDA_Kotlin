@@ -27,6 +27,13 @@ import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
+/**
+ * Composable function for displaying the card detail screen.
+ *
+ * @param navController The navigation controller for navigating between screens.
+ * @param bank The bank entity to display details.
+ * @param onDelete Callback function to delete the bank entity.
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CardDetailScreen(

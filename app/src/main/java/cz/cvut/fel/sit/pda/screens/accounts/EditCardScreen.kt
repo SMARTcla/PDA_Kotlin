@@ -33,7 +33,13 @@ import cz.cvut.fel.sit.pda.ui.theme.Grey50
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
-
+/**
+ * Composable function for editing a card screen.
+ *
+ * @param navController The navigation controller for navigating between screens.
+ * @param card The bank entity to edit.
+ * @param onUpdate Callback function to update the bank entity.
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditCardScreen(
@@ -104,5 +110,3 @@ fun EditCardScreen(
         }
     }
 }
-
-

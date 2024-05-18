@@ -27,6 +27,13 @@ import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 
+/**
+ * Composable function for displaying the list of accounts.
+ *
+ * @param navController The navigation controller for navigating between screens.
+ * @param transactions The list of transactions.
+ * @param banks The list of bank entities.
+ */
 @Composable
 fun AccountsScreen(
     navController: NavHostController,
@@ -39,8 +46,10 @@ fun AccountsScreen(
 
     LaunchedEffect(transactions, banks) {
         val balances = transactions.groupBy { it.cardName }.mapValues { (_, trans) ->
-            trans.sumOf { if (it.type == TransactionType.SALARY
-                || it.type == TransactionType.BENEFITS) it.amount else -it.amount
+            trans.sumOf {
+                if (it.type == TransactionType.SALARY
+                    || it.type == TransactionType.BENEFITS
+                ) it.amount else -it.amount
             }
         }
         val banksBalances = mutableListOf<BankCardWithBalance>()
@@ -90,5 +99,11 @@ fun AccountsScreen(
     }
 }
 
+/**
+ * Data class representing a bank card with its balance.
+ *
+ * @property name The name of the bank card.
+ * @property balance The balance of the bank card.
+ */
 data class BankCardWithBalance(val name: String, val balance: Long)
 

@@ -31,6 +31,13 @@ import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Grey50
 
+/**
+ * Composable function for adding a new card screen.
+ *
+ * @param navController The navigation controller for navigating between screens.
+ * @param cards The list of bank entities.
+ * @param saveBank Callback function to save a new bank entity.
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AddCardScreen(
