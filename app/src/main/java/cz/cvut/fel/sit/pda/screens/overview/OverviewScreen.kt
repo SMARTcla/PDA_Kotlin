@@ -1,7 +1,15 @@
 package cz.cvut.fel.sit.pda.screens.overview
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -19,12 +27,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.components.BasicAppBar
 import cz.cvut.fel.sit.pda.components.GeldsBottomBar
-import cz.cvut.fel.sit.pda.database.TransactionType
 import cz.cvut.fel.sit.pda.models.Transaction
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.DefaultColor
 import cz.cvut.fel.sit.pda.ui.theme.Indigo50
 
+/**
+ * Composable function for displaying the overview screen.
+ *
+ * @param navController The navigation controller.
+ * @param transactions List of transactions to display.
+ */
 @Composable
 fun OverviewScreen(navController: NavHostController, transactions: List<Transaction>) {
     var isExpensesSelected by remember { mutableStateOf(true) }
@@ -110,7 +123,11 @@ fun OverviewScreen(navController: NavHostController, transactions: List<Transact
                             TransactionTypeItem(
                                 transactionType,
                                 transactionsForType.sumOf { it.amount },
-                                onClick = { navController.navigate("categoryTransactions/${transactionType.name}") }
+                                onClick = {
+                                    navController.navigate(
+                                        route = "categoryTransactions/${transactionType.name}"
+                                    )
+                                }
                             )
                         }
                     }

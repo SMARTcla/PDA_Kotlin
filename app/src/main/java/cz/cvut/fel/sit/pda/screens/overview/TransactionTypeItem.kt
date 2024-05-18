@@ -17,9 +17,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.database.TransactionType
-import cz.cvut.fel.sit.pda.ui.theme.*
+import cz.cvut.fel.sit.pda.ui.theme.Green700
+import cz.cvut.fel.sit.pda.ui.theme.Grey200
+import cz.cvut.fel.sit.pda.ui.theme.Pink800
+import cz.cvut.fel.sit.pda.ui.theme.black
 
-
+/**
+ * Composable function for displaying a transaction type item.
+ *
+ * @param transactionType The transaction type.
+ * @param totalAmount The total amount associated with the transaction type.
+ * @param onClick Callback function to be invoked when the item is clicked.
+ */
 @Composable
 fun TransactionTypeItem(transactionType: TransactionType, totalAmount: Long, onClick: () -> Unit) {
 
