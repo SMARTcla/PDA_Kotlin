@@ -17,6 +17,15 @@ import androidx.navigation.NavHostController
 import cz.cvut.fel.sit.pda.GeldScreen
 import cz.cvut.fel.sit.pda.R
 
+/**
+ * A basic app bar with title and navigation actions.
+ *
+ * @param title           The title to display in the app bar.
+ * @param navController   The navigation controller to handle navigation actions.
+ * @param canNavigateBack A boolean indicating whether the back navigation action is enabled.
+ * @param onNavigateBack  Callback for the back navigation action.
+ * @param modifier        Optional modifier for the app bar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicAppBar(

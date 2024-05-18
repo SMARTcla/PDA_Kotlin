@@ -23,6 +23,11 @@ import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.DeepPurple500
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 
+/**
+ * Bottom navigation bar component for the Geld app.
+ *
+ * @param navController The navigation controller to handle navigation actions.
+ */
 @Composable
 fun GeldsBottomBar(navController: NavHostController) {
     val items = listOf(
