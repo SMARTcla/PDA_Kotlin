@@ -1,14 +1,8 @@
 package cz.cvut.fel.sit.pda.screens.settings
 
-import MyReceiptsDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.DrawerValue
@@ -26,13 +20,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cz.cvut.fel.sit.pda.screens.settings.receipts.AddReceiptsDialog
+import cz.cvut.fel.sit.pda.screens.settings.receipts.MyReceiptsDialog
 import cz.cvut.fel.sit.pda.services.NotificationService
 import cz.cvut.fel.sit.pda.ui.theme.PDATheme
 import kotlinx.coroutines.launch
@@ -40,6 +33,11 @@ import kotlinx.coroutines.launch
 private const val PREFS_NAME = "settings_prefs"
 private const val PREF_ENABLE_NOTIFICATIONS = "enable_notifications"
 
+/**
+ * Composable function for displaying the Settings screen.
+ *
+ * @param navController NavHostController for navigation.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavHostController) {
@@ -125,7 +123,9 @@ fun SettingsScreen(navController: NavHostController) {
                 )
             }
             if (showMyReceiptsDialog && imageUri != null) {
-                MyReceiptsDialog(imageUri = imageUri!!, onDismiss = { showMyReceiptsDialog = false })
+                MyReceiptsDialog(
+                    imageUri = imageUri!!,
+                    onDismiss = { showMyReceiptsDialog = false })
             }
         }
     }

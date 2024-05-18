@@ -22,6 +22,11 @@ import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
+/**
+ * Composable function to display an about dialog with information about the application and its authors.
+ *
+ * @param onDismiss Callback function to be invoked when the dialog is dismissed.
+ */
 @Composable
 fun AboutDialog(onDismiss: () -> Unit) {
     val context = LocalContext.current

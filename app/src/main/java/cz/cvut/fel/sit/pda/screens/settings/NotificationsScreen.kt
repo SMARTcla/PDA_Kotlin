@@ -1,6 +1,5 @@
 package cz.cvut.fel.sit.pda.screens.settings
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,6 +16,13 @@ import androidx.compose.ui.unit.dp
 import cz.cvut.fel.sit.pda.services.NotificationService
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
+/**
+ * Composable function to display a dialog for managing notification settings.
+ *
+ * @param enableNotifications Boolean indicating whether notifications are enabled.
+ * @param onEnableChange Callback function to be invoked when the enable notifications switch state changes.
+ * @param onDismiss Callback function to be invoked when the dialog is dismissed.
+ */
 @Composable
 fun NotificationsDialog(
     enableNotifications: Boolean,

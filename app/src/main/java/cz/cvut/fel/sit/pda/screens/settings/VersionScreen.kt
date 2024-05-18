@@ -17,7 +17,9 @@ import cz.cvut.fel.sit.pda.R
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 
 /**
- * A screen component to display the app version in a dialog.
+ * Composable function for displaying the version screen.
+ *
+ * @param onDismiss Callback function to be invoked when the dialog is dismissed.
  */
 @Composable
 fun VersionScreen(onDismiss: () -> Unit) {

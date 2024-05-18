@@ -9,6 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
+/**
+ * Composable function for displaying the settings drawer content.
+ *
+ * @param navController NavHostController for navigation.
+ * @param onDestinationClicked Callback function to be invoked when a destination item is clicked.
+ */
 @Composable
 fun SettingsDrawerContent(navController: NavHostController, onDestinationClicked: () -> Unit) {
     Column(modifier = Modifier.padding(start = 24.dp, top = 48.dp)) {

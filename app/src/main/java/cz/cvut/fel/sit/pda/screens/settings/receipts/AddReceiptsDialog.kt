@@ -24,6 +24,12 @@ import androidx.core.content.FileProvider
 import cz.cvut.fel.sit.pda.ui.theme.Purple800
 import java.io.File
 
+/**
+ * Composable function for displaying the dialog to add receipts.
+ *
+ * @param onDismiss Callback function to be invoked when the dialog is dismissed.
+ * @param onPictureSelected Callback function to be invoked when a picture is selected.
+ */
 @Composable
 fun AddReceiptsDialog(onDismiss: () -> Unit, onPictureSelected: (Uri) -> Unit) {
     val context = LocalContext.current
