@@ -1,5 +1,11 @@
 package cz.cvut.fel.sit.pda.database
 
+/**
+ * Enum class representing different types of transactions.
+ *
+ * Each transaction type has a display name and belongs to a specific category
+ * such as "Expenses" or "Income".
+ */
 enum class TransactionType(val displayName: String, val category: String) {
     // Expences
     RESTAURANT(displayName = "Restaurant", category = "Expenses"),

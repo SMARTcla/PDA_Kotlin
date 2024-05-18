@@ -4,6 +4,16 @@ import cz.cvut.fel.sit.pda.database.TransactionEntity
 import cz.cvut.fel.sit.pda.database.TransactionType
 import java.time.LocalDate
 
+/**
+ * A data class representing a transaction.
+ *
+ * @property id The unique identifier of the transaction.
+ * @property name The name of the transaction.
+ * @property amount The amount of the transaction.
+ * @property type The type of the transaction.
+ * @property date The date of the transaction.
+ * @property cardName The name of the card associated with the transaction.
+ */
 data class Transaction(
     val id: String,
     val name: String,
